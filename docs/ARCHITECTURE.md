@@ -6,7 +6,7 @@ Buildless source UI plus esbuild-bundled `genlayer-js@1.1.8`. No server. GitHub 
 
 - Local fixture: seven authored comparisons with visibly disclosed preset outcomes. Initial example V1 acknowledgement is simulated and labelled.
 - Custom local: seal complete arbitrary text. No AI is called. Each revision is conservative REVIEW, all five UNCERTAIN, fresh epoch. This is an offline lifecycle demonstration, not semantic classification.
-- Studionet: exact supported protocol readbacks through official RPC, complete historical text SHA/parent/epoch checks. Wallet optional for reads. No address supplied by this release. Contract source must match generated release digest before an explicit write.
+- Studionet: exact supported protocol readbacks through official RPC, complete historical text SHA/parent/epoch checks. Wallet optional for reads. The verified address is supplied by deployments/studionet.json. Contract source must match generated release digest before an explicit write.
 
 `domain.js` mirrors the contract's deterministic epoch and acknowledgement rules; local tests cover them. The browser never submits local labels or model findings to the contract. Only revise(text) invokes native consensus within the contract.
 

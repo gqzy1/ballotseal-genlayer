@@ -1,22 +1,22 @@
-# Real browser acceptance — V0.3
+# Browser acceptance — V0.3
 
-URL: https://ballotseal-gqzy1.zsf197176.chatgpt.site/
+Current application: https://gqzy1.github.io/ballotseal-genlayer/
 
-The existing public Site was updated from the exact app/dist build. Source Site commit e121422db0ddc09a72f10b1366edd1ea84889481; version 2; native deployment succeeded. GitHub application implementation commit 025212914651a0c81528e31f681187f8a6a26a02. This is a static candidate, not an onchain deployment.
+## Desktop Chrome
 
-Observed in actual Chrome, 1348 CSS-pixel viewport:
-- Homepage art, navigation and complete guide render; guide opens and enters workbench.
-- All seven fixtures selected, compared and inspected through actual UI controls; exact outcome/epoch/five-dimension/history observations in browser-scenarios.json.
-- Missing-terms case: acknowledge V2; V1 acknowledgement remains HISTORICAL and V2 becomes APPLICABLE.
-- Verify record reports correct SHA, parent, version, epoch and acknowledgement bindings.
-- Export JSON triggered a real browser download. The downloaded file was selected through the real file chooser and verified successfully across two versions. Its local fixture record is browser-export.json, NOT chain evidence.
-- Empty custom sealing rejects input with the 20–6,000-character message.
-- Custom title/text seal V1; a changed custom revision produces LOCAL UNASSESSED / NOT AI and five UNCERTAIN dimensions, epoch 2. No signature or chain write was attempted.
-- No application-origin console warnings/errors observed in the captured log. Browser-extension metadata errors were present and are not attributed to application code.
-- No horizontal overflow at the observed 1348px viewport (clientWidth = scrollWidth).
+- Homepage, navigation and onboarding were operated.
+- Seven local fixtures were compared through the UI. Outcomes are authored examples, not chain consensus. See browser-scenarios.json.
+- Custom input validation, conservative local REVIEW, history, integrity checks and JSON export/import were exercised.
+- The actual Studionet deployment loaded V1–V4, source verification and epoch 2. Record verification and a real JSON download succeeded; the export's four text digests matched.
+- Captured application-origin warnings/errors: zero. Extension metadata errors were excluded.
+- The earlier local-fixture browser-export.json remains offline evidence; the onchain export is evidence/studionet/onchain-export.json.
 
-Narrow viewport/real device QA: NOT RUN. The available API exposes no viewport resize/emulation method, and Chrome shortcut attempts did not change the viewport. CSS source/DOM checks cover 780/480px breakpoints, labelled fields, live status, keyboard focus rules and reduced motion; these are not a substitute for rendered mobile acceptance.
+## Narrow-screen Chrome
 
-Shell HTTP asset requests returned 403 or timed out, while the supported interactive browser loaded and operated the public page. See public-assets.jsonl; no HTTP-200/cross-network availability claim is made. No proxy, fingerprint or RPC restriction bypass was attempted.
+User screenshots at 320×844 (homepage) and 390×844 (workbench) were reviewed. Visible content had no obvious obstruction. On 20 October 2026 the user confirmed successful verification, JSON download and normal button operation after the narrow-screen read/verify/export instructions.
 
-GitHub Pages workflow remained queued at this checkpoint. Publication through the existing Site succeeded; Pages success is not inferred from it.
+Evidence is screenshot review plus user-reported interaction in Chrome device-toolbar emulation. Physical mobile hardware, an independent user-local console capture, keyboard traversal and reduced-motion execution were not recorded. CSS and automated DOM checks are separate evidence.
+
+## Publication
+
+GitHub Pages is the current deployment-configured application. The earlier chatgpt.site publication was an offline preview and is not the current release. Real chain receipts and runtime boundaries are documented in [live acceptance](../docs/LIVE_ACCEPTANCE.md).
