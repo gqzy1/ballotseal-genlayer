@@ -1,0 +1,5 @@
+{"path": "index.html", "error": "HTTP Error 403: Forbidden"}
+{"path": "release.json", "error": "HTTP Error 403: Forbidden"}
+{"path": "style.css", "error": "HTTP Error 403: Forbidden"}
+{"path": "app.js", "error": "<urlopen error timed out>"}
+{"path": "brand.svg", "error": "HTTP Error 403: Forbidden"}
