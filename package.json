@@ -1,0 +1,30 @@
+{
+  "name": "ballotseal",
+  "version": "0.3.0",
+  "description": "Governance amendment desk with version-bound acknowledgements",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test --test-reporter=tap tests/*.test.js",
+    "check": "node --check app.js && node --check domain.js && node --check sdk.js",
+    "verify:source": "node scripts/verify-source.mjs",
+    "lint": "eslint .",
+    "format:check": "prettier --check app.js domain.js sdk.js style.css index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "esbuild": "0.25.12",
+    "genlayer-js": "1.1.8"
+  },
+  "private": true,
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "globals": "16.4.0",
+    "jsdom": "26.1.0",
+    "prettier": "3.6.2"
+  }
+}

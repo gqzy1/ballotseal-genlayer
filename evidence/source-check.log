@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> ballotseal@0.3.0 verify:source
+> node scripts/verify-source.mjs
+
+Canonical contract SHA256 verified: 08deb1ff3faf647a239ae99d362894ab57e4a478d5f2c00b19e0f1585e7f39af

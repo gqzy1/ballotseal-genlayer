@@ -1,2 +1,53 @@
-# ballotseal-genlayer
-BallotSeal — Version-aware governance consent app for GenLayer, with context-bound acknowledgements and semantic change review.
+# BallotSeal — The terms changed. Did your consent?
+
+A complete static governance amendment desk built for GenLayer. **V0.3 is an undeployed candidate.** Local fixtures, custom unassessed drafts and network readbacks are explicitly separated. No live AI or transaction success is implied by the public walkthrough.
+
+[Public app](https://gqzy1.github.io/ballotseal-genlayer/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md) · [Projects submission draft](docs/SUBMISSION_PROJECTS.md).
+
+## Try the complete workflow
+
+1. Open “How it works” for the three-step guide. Start with a fixture: wording, doubled budget, new treasury authority, changed deadline, new beneficiary, expanded scope or missing terms.
+2. Inspect the BEFORE/AFTER text and character diff. Choose “Compare & seal revision” to view all five labels and reasons. These outcomes are fixed examples, not AI findings.
+3. Check the consent epoch. Only five SAME labels carry the epoch; material or uncertain results open a fresh one. Acknowledge the exact current version locally; old confirmation records remain visible.
+4. Click versions in the timeline, copy the text digest, verify the record and export JSON. “Verify a file” checks a prior export without loading it as trusted chain evidence.
+5. Choose “New proposal”, enter a title and complete text in AFTER, and seal V1. Local custom revisions always use UNASSESSED / REVIEW with five UNCERTAIN labels. No model is silently substituted.
+6. For a future verified deployment, select Studionet connection. Read-only loading requires no wallet. Writes require a wallet, matching canonical deployed source, chain/account checks and an explicit user signature.
+
+## Build and verify
+
+Node 22+:
+
+```bash
+npm ci
+npm run check
+npm run lint
+npm test
+npm run verify:source
+npm run build
+```
+
+Serve `dist/` with a static host. No backend, database, private API key or paid AI dependency. `.github/workflows/pages.yml` checks PRs and builds/deploys main through GitHub Pages. All asset paths are relative for project-path hosting. Fonts use local system stacks; the geometric brand is a code-native SVG.
+
+## Source map
+
+| Path | Purpose |
+|---|---|
+| index.html, style.css, brand.svg | Graphite/cyan/violet identity; responsive full interface; reduced motion |
+| app.js | UI, readback verification, explicit wallet writes and pending recovery |
+| domain.js | Local fixture lifecycle, exact text hashing, export validation |
+| sdk.js | Pinned genlayer-js client, wallet and network guards |
+| contracts/ballot_seal.py | Complete byte-identical canonical contract from Repository A |
+| SOURCE_SHA256.txt, scripts/verify-source.mjs | Canonical source digest verification |
+| tests/ | Domain, SDK adapter and actual DOM workflow tests |
+| docs/ | Architecture, API, security, runtime and submission material |
+| evidence/ | Real command outputs and release acceptance evidence |
+
+The contract protocol is `ballotseal-0.3`; changing its source requires synchronized A/B copies and a new verified deployment. `dist/release.json` is generated with the exact source digest and a null deployment address. The browser fails closed if deployed source differs. It does not deploy contracts.
+
+## Honest capability boundary
+
+SHA256 confirms exact text bytes, not authorship or truth. File verification checks internal consistency, not AI accuracy or onchain inclusion. An acknowledgement is not a vote, quorum, membership, legal consent or permission to execute funds. Explanations are accepted-leader annotations, with independent consensus over labels. Local state is browser-local and can be modified by its owner; export before clearing browser data.
+
+No production address is configured. Live semantic consensus, target fixed-GenVM execution and wallet E2E remain acceptance gates. The Projects task requires actual GenLayer interaction, so this release is **BLOCKED for final Projects submission** until separately authorized deployment and live evidence. Browser/static publication does not close that gap. No Portal submission was made.
+
+MIT licensed.
