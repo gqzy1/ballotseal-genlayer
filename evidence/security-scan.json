@@ -1,0 +1,5 @@
+{
+  "scanner": "bounded credential pattern scan; not a proof of absence of secrets",
+  "files_scanned": 35,
+  "findings": []
+}

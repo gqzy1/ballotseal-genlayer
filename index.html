@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b101a" />
+    <meta
+      name="description"
+      content="BallotSeal binds governance acknowledgements to exact proposal versions. Inspect five dimensions of change before carrying consent forward."
+    />
+    <title>BallotSeal — The terms changed. Did your consent?</title>
+    <link rel="icon" href="brand.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#desk">Skip to workbench</a>
+    <header>
+      <a class="brand" href="#home"
+        ><img src="brand.svg" width="32" height="32" alt="" /><span
+          >BallotSeal<small>CONTEXT IS THE CONTRACT.</small></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#desk">Workbench</a><a href="#trail">Version trail</a
+        ><a href="#protocol">The protocol ↗</a>
+      </nav>
+      <span class="build"><i></i> PRE-DEPLOYMENT / V0.3</span>
+    </header>
+    <main>
+      <section id="home" class="hero">
+        <div class="heroCopy">
+          <p class="eyebrow">
+            <span>01 / GOVERNANCE INTEGRITY</span
+            ><span class="line"></span> BUILT FOR GENLAYER
+          </p>
+          <h1>
+            Same proposal.<br /><span>Different terms.</span><br />Whose
+            <em>consent?</em>
+          </h1>
+          <p class="lede">
+            A “yes” belongs to the terms it was given.<br />See what changed.
+            Preserve the history.<br />Know when to ask again.
+          </p>
+          <div class="heroActions">
+            <a class="button primary" href="#desk"
+              >Inspect an amendment <span>↗</span></a
+            ><button id="guideOpen" class="textButton">
+              How it works <span>＋</span>
+            </button>
+          </div>
+          <p class="micro">
+            VERSION-BOUND ACKNOWLEDGEMENTS · FIVE-DIMENSION REVIEW
+          </p>
+        </div>
+        <div class="sealArt" aria-hidden="true">
+          <div class="artGrid"></div>
+          <div class="orbit o1"></div>
+          <div class="orbit o2"></div>
+          <div class="orbit o3"></div>
+          <div class="core">
+            <span class="coreMark">B<span>◈</span></span
+            ><small>SEALED TO ITS TERMS</small>
+          </div>
+          <div class="node nodeA">
+            <small>PROPOSAL / 01</small><b>V1<span>1000 USDC</span></b>
+          </div>
+          <div class="node nodeB">
+            <small>AMENDMENT / 02</small><b>V2<span>2000 USDC</span></b
+            ><em>MATERIAL CHANGE</em>
+          </div>
+          <div class="artFoot">
+            <span>INTEGRITY ≠ AUTHENTICITY</span><span>SHA—256</span>
+          </div>
+          <span class="coordinate c1">35° / CONTEXT</span
+          ><span class="coordinate c2">Δ / ACKNOWLEDGEMENT</span>
+        </div>
+      </section>
+      <section class="principles" aria-label="Protocol overview">
+        <div>
+          <b>01<span>Seal the terms</span></b>
+          <p>
+            Exact text. Immutable versions.<br />A verifiable SHA-256
+            fingerprint.
+          </p>
+        </div>
+        <div>
+          <b>02<span>Inspect the change</span></b>
+          <p>
+            Five dimensions of obligations.<br />Independent assessment in
+            GenLayer.
+          </p>
+        </div>
+        <div>
+          <b>03<span>Carry or reconfirm</span></b>
+          <p>Meaningful or uncertain changes<br />open a new consent epoch.</p>
+        </div>
+      </section>
+      <section id="desk" class="desk">
+        <div class="sectionHeading">
+          <div>
+            <p class="eyebrow">02 / THE AMENDMENT DESK</p>
+            <h2>Every change leaves a trace.</h2>
+          </div>
+          <span class="label">NO SILENT CONSENT RESETS</span>
+        </div>
+        <div class="modebar">
+          <div class="switch" role="group" aria-label="Execution mode">
+            <button id="demo" class="active" aria-pressed="true">
+              Explore locally</button
+            ><button id="live" aria-pressed="false">
+              Studionet connection ↗
+            </button>
+          </div>
+          <span id="modeBadge">LOCAL FIXTURE / NO AI / NO TRANSACTION</span>
+        </div>
+        <div id="modeNote" class="notice">
+          Preset outcomes demonstrate the lifecycle. Custom local drafts always
+          require review; they never receive an invented AI verdict.
+        </div>
+        <section id="liveSettings" hidden class="connection panel">
+          <div>
+            <p class="eyebrow">STABLE STUDIONET · CHAIN 61999</p>
+            <h3>Bring a verified deployment.</h3>
+            <p>
+              No contract is deployed by this release. Read-only access needs no
+              wallet. Writes require an explicit wallet signature.
+            </p>
+          </div>
+          <div class="connectionFields">
+            <label
+              >Contract address<input
+                id="contract"
+                placeholder="0x…"
+                spellcheck="false"
+                autocomplete="off" /></label
+            ><label
+              >Proposal reference<input
+                id="ref"
+                placeholder="owner-address::proposal-id"
+                spellcheck="false"
+                autocomplete="off"
+            /></label>
+            <div class="actions">
+              <button id="load">Read proposal ↗</button
+              ><button id="wallet">Connect wallet</button
+              ><button id="resume">Check pending transaction</button>
+            </div>
+            <p id="pendingHint" class="micro"></p>
+          </div>
+        </section>
+        <div class="workbench">
+          <aside>
+            <p class="eyebrow">STRESS-TEST A CHANGE</p>
+            <div id="scenarios"></div>
+            <div class="asideRule">
+              <span>THE CARRY RULE</span>
+              <p>
+                Five unchanged dimensions.<br />One continuous epoch.<br />Anything
+                else? Ask again.
+              </p>
+              <div class="miniFive"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </aside>
+          <div class="editor">
+            <div class="editorHeading">
+              <div>
+                <span class="eyebrow">PROPOSAL WORKSPACE</span>
+                <h3 id="proposalTitle">Design Guild / identity grant</h3>
+              </div>
+              <span id="version" class="version">V1 <i>→</i> V2</span>
+            </div>
+            <div class="sealForm">
+              <label
+                >Proposal title<input
+                  id="title"
+                  maxlength="100"
+                  value="Design Guild / identity grant" /></label
+              ><label id="localIdLabel" hidden
+                >Local ID<input
+                  id="localId"
+                  maxlength="40"
+                  value="design-grant"
+                  pattern="[a-z0-9-]+" /></label
+              ><button id="newProposal" class="quiet">New proposal ＋</button>
+            </div>
+            <div class="drafts">
+              <label
+                ><span
+                  ><b>BEFORE</b
+                  ><small id="sealedBadge">SEALED / V1</small></span
+                ><textarea
+                  id="before"
+                  readonly
+                  maxlength="6000"
+                  aria-label="Sealed proposal text"
+                ></textarea></label
+              ><label
+                ><span><b>AFTER</b><small>PROPOSED REVISION</small></span
+                ><textarea
+                  id="after"
+                  maxlength="6000"
+                  aria-label="Proposed revision text"
+                ></textarea>
+              </label>
+            </div>
+            <div class="draftMeta">
+              <span id="characterCount">0 / 6,000 characters</span
+              ><button id="showDiff" class="textButton">
+                Inspect text differences ＋
+              </button>
+            </div>
+            <div
+              id="diff"
+              class="diff"
+              hidden
+              aria-label="Text difference"
+            ></div>
+            <div class="editorFoot">
+              <p id="actionHint">
+                Choose a scenario, then inspect the amendment.
+              </p>
+              <div class="actions">
+                <button id="seal" class="quiet">Seal as new V1</button
+                ><button id="assess" class="primary">
+                  Compare & seal revision <span>↗</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section id="result" class="result panel" hidden>
+          <div class="resultHead">
+            <div>
+              <p class="eyebrow" id="resultSource">PRESET OUTCOME / NOT AI</p>
+              <h2 id="decisionTitle"></h2>
+              <p id="decisionText"></p>
+            </div>
+            <div class="epochOrb">
+              <span>CONSENT EPOCH</span><b id="epoch">01</b>
+            </div>
+          </div>
+          <div id="dimensions" class="dimensions"></div>
+          <div class="ackRow">
+            <div>
+              <span class="eyebrow">ACKNOWLEDGEMENT / CURRENT VIEWER</span>
+              <h3 id="ackStatus"></h3>
+              <p id="ackDetail"></p>
+            </div>
+            <button id="ack">Acknowledge exact version ↗</button>
+          </div>
+        </section>
+        <p id="status" class="status" role="status" aria-live="polite">
+          <span>Ready. Choose a scenario or seal your own proposal.</span>
+        </p>
+      </section>
+      <section id="trail">
+        <div class="sectionHeading">
+          <div>
+            <p class="eyebrow">03 / THE PERMANENT RECORD</p>
+            <h2>The past stays intact.</h2>
+          </div>
+          <div class="actions">
+            <button id="verify">Verify record ◈</button
+            ><button id="export">Export JSON ↓</button
+            ><label class="button quiet fileLabel"
+              >Verify a file ↑<input
+                id="importFile"
+                type="file"
+                accept="application/json,.json"
+            /></label>
+          </div>
+        </div>
+        <div class="trailLayout">
+          <div id="history" class="timeline"></div>
+          <section class="recordPanel">
+            <div class="recordTop">
+              <span class="eyebrow">EXACT TEXT FINGERPRINT</span
+              ><b id="recordVersion">V1</b>
+            </div>
+            <p id="recordDigest" class="hash"></p>
+            <button id="copyHash" class="textButton">Copy digest ⧉</button>
+            <div class="recordText" id="recordText"></div>
+            <h4>Acknowledgement trail</h4>
+            <div id="ackHistory"></div>
+            <p class="micro">
+              A hash detects changed bytes. It does not certify who wrote the
+              text, its truth, or its source.
+            </p>
+          </section>
+        </div>
+      </section>
+      <section id="protocol" class="protocol">
+        <div>
+          <p class="eyebrow">04 / TRUST, PRECISELY SCOPED</p>
+          <h2>
+            Not a vote.<br /><span
+              >A record of what<br />you acknowledged.</span
+            >
+          </h2>
+        </div>
+        <div class="protocolNotes">
+          <article>
+            <span>01</span>
+            <div>
+              <h3>Meaning needs independent review.</h3>
+              <p>
+                The contract asks GenLayer’s leader and validators to separately
+                assess the same sealed texts. Every dimension must agree.
+                Explanatory wording may differ.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <h3>Uncertainty never means “safe.”</h3>
+              <p>
+                Missing terms and ambiguous references require review and open a
+                new epoch. Later cosmetic edits cannot resurrect an old
+                acknowledgement.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span>03</span>
+            <div>
+              <h3>History is not authority.</h3>
+              <p>
+                This tool provides no votes, membership, quorum, legal consent,
+                automatic execution or treasury control. Local examples are
+                explicitly separate from network results.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <footer>
+        <a class="brand" href="#home"
+          ><img src="brand.svg" alt="" width="28" height="28" /><span
+            >BallotSeal<small>KEEP THE CONTEXT.</small></span
+          ></a
+        >
+        <div>
+          <a
+            href="https://github.com/gqzy1/ballot-seal-primitive"
+            target="_blank"
+            rel="noopener"
+            >Intelligent Contract ↗</a
+          ><a
+            href="https://github.com/gqzy1/ballotseal-genlayer"
+            target="_blank"
+            rel="noopener"
+            >Application source ↗</a
+          >
+        </div>
+        <small
+          >OPEN SOURCE / MIT · PRE-DEPLOYMENT CANDIDATE<br />REAL SEMANTIC
+          CONSENSUS AND LIVE WALLET WRITES REMAIN UNVERIFIED.</small
+        >
+      </footer>
+    </main>
+    <dialog id="guide">
+      <form method="dialog">
+        <button class="close" aria-label="Close guide">×</button>
+      </form>
+      <span class="eyebrow">WELCOME TO BALLOTSEAL</span>
+      <h2>Your “yes” has a context.</h2>
+      <ol>
+        <li>
+          <b>Start with a sealed proposal.</b>
+          <p>Try one of seven fixtures or seal custom text locally.</p>
+        </li>
+        <li>
+          <b>Compare a new revision.</b>
+          <p>Inspect five dimensions, the rationale and the consent epoch.</p>
+        </li>
+        <li>
+          <b>Acknowledge the current terms.</b>
+          <p>Verify and export a complete record with hashes and history.</p>
+        </li>
+      </ol>
+      <p class="notice">
+        This release is not deployed onchain. Local fixtures are not AI results;
+        custom local text is always marked unassessed.
+      </p>
+      <button id="guideStart" class="primary">Open the workbench ↗</button>
+    </dialog>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
