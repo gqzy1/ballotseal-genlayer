@@ -2,7 +2,7 @@
 
 A complete static governance amendment desk built for GenLayer. **V0.3 has a source-verified Stable Studionet deployment.** Local fixtures, custom unassessed drafts and network readbacks are explicitly separated. Fixtures do not imply live AI success; actual onchain evidence is recorded separately in [live acceptance](docs/LIVE_ACCEPTANCE.md).
 
-[Public app](https://ballotseal-gqzy1.zsf197176.chatgpt.site/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md) · [Projects submission draft](docs/SUBMISSION_PROJECTS.md).
+[Public app](https://gqzy1.github.io/ballotseal-genlayer/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md) · [Projects submission material](docs/SUBMISSION_PROJECTS.md).
 
 ## Try the complete workflow
 
@@ -48,13 +48,10 @@ The contract protocol is `ballotseal-0.3`; changing its source requires synchron
 
 SHA256 confirms exact text bytes, not authorship or truth. File verification checks internal consistency, not AI accuracy or onchain inclusion. An acknowledgement is not a vote, quorum, membership, legal consent or permission to execute funds. Explanations are accepted-leader annotations, with independent consensus over labels. Local state is browser-local and can be modified by its owner; export before clearing browser data.
 
-A verified Studionet address is configured. Seven actual transactions and real public-app reads are archived in [LIVE_ACCEPTANCE.md](docs/LIVE_ACCEPTANCE.md). Final release remains **BLOCKED** by the documented live uncertainty, narrow-screen and external-wallet acceptance limits. No Portal submission was made.
+A verified Studionet address is configured. Seven actual transactions and real public-app reads are archived in [LIVE_ACCEPTANCE.md](docs/LIVE_ACCEPTANCE.md). Release acceptance is complete; coverage limits are documented in the live evidence. No Portal submission was made.
 
 MIT licensed.
 
-GitHub Pages has successfully published and been operated in real Chrome: https://gqzy1.github.io/ballotseal-genlayer/ . The older public Site remains an offline walkthrough; use Pages for the current deployment configuration.
+## Release evidence
 
-## Latest live acceptance
-
-See [actual deployment, seven final receipts and remaining gates](docs/LIVE_ACCEPTANCE.md). Canonical source remains unchanged; the full deployed bytes match A/B. Broadcast budget used: **7/8**. Historical no-deployment statements are superseded by this evidence. Final status remains **BLOCKED** until the documented acceptance gaps are resolved.
-
+[Deployment and finalized lifecycle](docs/LIVE_ACCEPTANCE.md) · [Current acceptance status](docs/RELEASE_STATUS.md) · [Runtime evidence](docs/RUNTIME.md).
