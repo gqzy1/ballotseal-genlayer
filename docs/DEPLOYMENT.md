@@ -1,10 +1,12 @@
-# Deployment gate — no transactions authorized in this release
+# Deployment gate — 8-transaction authorization
 
-1. Freeze canonical source and verify A/B SHA256, extracted ABI, pinned SDK and passing checks.
-2. Run in the target fixed GenVM executor or supported Studio simulation. Separate mock outputs from actual model behavior. Test wording equivalence, each changed dimension, uncertain/missing inputs and injected instructions.
-3. Only after separate authorization, deploy this exact source on Stable Studionet / 61999. Archive finalized receipt, returned address, explorer URL and deployed-source byte comparison.
-4. Separately authorize the minimum real create/acknowledge/cosmetic revise/material revise/re-acknowledge sequence. Check each receipt and readback. Retain prior-version acknowledgements and prove non-resurrection after another cosmetic revision.
-5. Configure the verified address in the app, run real wallet write E2E and test rejection/network/account changes and pending recovery. The app source digest gate must match; do not disable it to make a test pass.
-6. Complete submission evidence only after finality and live readback checks. No budget from a different project applies.
+Current authority and evidence are recorded in [FINAL_DEPLOYMENT_CHECKPOINT.md](FINAL_DEPLOYMENT_CHECKPOINT.md). This supersedes the historical no-transactions authorization in earlier release notes; it does not claim a deployment.
 
-Nothing here sends a transaction or requests a signature. These are future acceptance steps, not completed evidence.
+1. Verify canonical full-source SHA-256, A/B byte identity, ABI, pinned SDK and checks.
+2. Complete fixed GenVM execution or supported Studio simulation. Clearly distinguish SDK Direct Mode, mock LLM, real model and actual chain results.
+3. Verify chain **61999** and user-controlled wallet; user signs through supported UI. Never request/read/store private keys or seed phrases. Maximum **8 broadcasts**, failures included. No purchase, bridge, mainnet or automatic Appeal.
+4. Deploy exact source with no constructor parameters; retain hash, final execution receipt and address. Read back deployed source and compare full bytes/digest. Do not resend after receiving a hash; resolve its status first.
+5. Configure verified address in the frontend; retain canonical source, network, account and pending-hash guards.
+6. Through the product: create V1; acknowledge V1; cosmetic V2 (same epoch); material V3 (new epoch, old acknowledgement invalid); cosmetic V4 (old acknowledgement stays invalid); acknowledge V4 and verify immutable history. Deployment plus six writes = 7 transactions. #8 is only for justified recovery after original status is known.
+7. Inspect each final status, execution result, model labels/reasons and chain readback. Record untested scenarios honestly. No fabricated receipt/address, consensus or deployment claim.
+8. Complete real desktop/narrow-screen browser acceptance, update evidence and both English submission drafts, and stop at READY TO SUBMIT. User alone submits Portal.

@@ -53,3 +53,7 @@ No production address is configured. Live semantic consensus, target fixed-GenVM
 MIT licensed.
 
 GitHub Pages is configured for Actions but its hosted workflow is still queued; no Pages deployment success is claimed. Intended Pages URL: https://gqzy1.github.io/ballotseal-genlayer/ . The live walkthrough above uses the existing public Site.
+
+## Latest deployment checkpoint
+
+See [2026-10-19 deployment evidence and authorization](docs/FINAL_DEPLOYMENT_CHECKPOINT.md). CI and GitHub Pages have verified results; real deployment/model consensus and narrow-screen browser acceptance remain blocked. Authorized broadcasts used: 0/8. Historical release authorization statements are superseded by this checkpoint.
