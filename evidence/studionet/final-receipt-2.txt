@@ -1,0 +1,46 @@
+Transaction Method Call
+19 minutes ago
+0x567f55e21e08c1153ee0e54eaa8f48927d2d9196e2afa5289d3632422bfd4ead
+Execution
+Status:
+FINALIZED
+Result:
+SUCCESS
+Input
+{"args":["acceptance-v03","Design Guild — version-bound grant","The Design Guild shall receive a total budget of 1,000 USDC upon delivery of one open-source logo kit by 1 December 2026. The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.",]"method":"create"}
+Output
+"0x0a89623dae594e46beef902609ed37ea50b7d5b5::acceptance-v03"
+Consensus History
+Accepted
+PENDING
+→
+PROPOSING
+→
+COMMITTING
+→
+REVEALING
+→
+ACCEPTED
+Validator Set
+0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb
+llm-router / policy:prd-kimi
+SUCCESS
+Agree
+0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb
+llm-router / policy:prd-glm
+SUCCESS
+Agree
+0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05
+llm-router / policy:prd-gemma
+SUCCESS
+Agree
+0x0B50B270Eba5D9B780272C4Cf4720260177e761D
+llm-router / policy:prd-gpt-oss
+SUCCESS
+Agree
+0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd
+llm-router / policy:prd-gemini
+SUCCESS
+Agree
+Full Transaction Data
+{...}

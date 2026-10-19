@@ -217,11 +217,11 @@ async function configure(next) {
   $("modeBadge").textContent =
     next === "demo"
       ? "LOCAL FIXTURE / NO AI / NO TRANSACTION"
-      : "STABLE STUDIONET / NO DEPLOYMENT CONFIGURED";
+      : "STABLE STUDIONET / READ-ONLY CONNECTION";
   $("modeNote").textContent =
     next === "demo"
       ? "Preset outcomes demonstrate the lifecycle. Custom local drafts always require review; they never receive an invented AI verdict."
-      : "No contract is deployed by this release. Enter a verified deployment for read-only access. Connecting a wallet is optional until you explicitly send a write.";
+      : "Read the canonical Studionet deployment and verify its source and text digests. Connecting a wallet is optional until you explicitly send a write.";
   $("actionHint").textContent =
     next === "demo"
       ? "Choose a scenario, then inspect the amendment."

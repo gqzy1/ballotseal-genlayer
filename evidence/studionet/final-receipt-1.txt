@@ -1,0 +1,45 @@
+Transaction Contract Deployment
+21 minutes ago
+0xd6a6c8a748dbe0ea31f31db1542f4f5026192ad3a5194d3ed8b2c67d53589def
+Execution
+Status:
+FINALIZED
+Result:
+SUCCESS
+Input
+{}
+Output
+null
+Consensus History
+Accepted
+PENDING
+→
+PROPOSING
+→
+COMMITTING
+→
+REVEALING
+→
+ACCEPTED
+Validator Set
+0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb
+llm-router / policy:prd-kimi
+SUCCESS
+0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21
+llm-router / policy:prd-sonnet
+SUCCESS
+Agree
+0x8a876C3F3a4783Bd123982bcBF3c672dc0239004
+llm-router / policy:prd-mistral
+SUCCESS
+Agree
+0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd
+llm-router / policy:prd-gemini
+SUCCESS
+Agree
+0xad7d13f269CeAd4379E64a1A3a0803a827e70B43
+openrouter / openai/gpt-5.4
+SUCCESS
+Agree
+Full Transaction Data
+{...}

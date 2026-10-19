@@ -22,7 +22,7 @@ await writeFile(
     {
       protocol: "ballotseal-0.3",
       contract_sha256: createHash("sha256").update(bytes).digest("hex"),
-      deployment: null,
+      deployment: JSON.parse(await readFile("deployments/studionet.json", "utf8")),
       chain_id: 61999,
     },
     null,

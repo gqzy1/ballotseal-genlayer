@@ -1,31 +1,34 @@
-# Projects — submission draft (not yet ready to send)
+# Projects — submission material
 
 **Project:** BallotSeal
 
 **Tagline:** Keep every acknowledgement attached to the proposal terms it was given.
 
-**Main category:** Governance
+**Category:** Governance; secondary Developer Tools.
 
-**Secondary:** Developer Tools
+**Website:** https://gqzy1.github.io/ballotseal-genlayer/
 
 **Repository:** https://github.com/gqzy1/ballotseal-genlayer
 
-**Intelligent Contract source:** https://github.com/gqzy1/ballot-seal-primitive
+**Intelligent Contract repository:** https://github.com/gqzy1/ballot-seal-primitive
 
-**Public app:** https://ballotseal-gqzy1.zsf197176.chatgpt.site/
+**Network / address:** Stable Studionet / 61999 / `0x01Da0016b86dA8DD85721A502Cb88B5dfb462d4c`.
 
-**Description:** BallotSeal is a governance proposal version-control and context-bound acknowledgement tool. It seals exact proposal text with a SHA-256 fingerprint, compares revisions across budget, beneficiary, delivery scope, deadline and authority, and makes consent-epoch changes visible. The complete product includes a seven-scenario interactive walkthrough, custom local sealing, text diffs, five-dimension reasons, version/acknowledgement history, integrity verification and JSON export. The native GenLayer contract independently classifies semantic changes and applies deterministic epoch transitions. The frontend implements source-verified wallet integration and readback checks.
+**Description:** BallotSeal is a governance proposal version-control and context-bound acknowledgement tool. It seals exact proposal text, shows revision diffs across budget, beneficiary, delivery scope, deadline and authority, and makes changes in consent epochs visible. Its graphite, cyan and violet amendment desk includes an interactive seven-scenario walkthrough, custom conservative local drafts, per-dimension reasons and quotes, version trails, SHA-256 integrity checks and JSON export. Network mode reads the source-verified GenLayer deployment and displays real sealed revisions. Local fixtures, unassessed local drafts and actual network results are explicitly separated.
 
-**Why GenLayer is central:** Byte changes cannot determine changes in natural-language obligations. The Intelligent Contract requires independently computed labels from leader/validators before advancing a revision. The product reads that persistent result rather than submitting a client-supplied verdict.
+**Why GenLayer:** Natural-language obligations need semantic comparison. The Intelligent Contract uses native leader/validator assessments and accepts a revision only through its equivalence rule; the frontend does not submit a client-created classification. Every dimension must remain SAME to carry the epoch. Material/uncertain changes require reconfirmation, and later cosmetic changes cannot revive an earlier epoch's acknowledgement.
 
-**Walkthrough for reviewers:**
-1. Load “A cleaner sentence”; compare it and inspect CARRY, epoch 1 and V1 applicability.
-2. Load “The budget doubles”; compare it and inspect RECONFIRM, epoch 2 and the historical V1 acknowledgement.
-3. Acknowledge V2 locally; inspect the retained V1/V2 acknowledgement history and timeline.
-4. Try the authority, deadline, beneficiary, scope and missing-agreement cases.
-5. Create custom V1 text and revise it. Observe the honest UNASSESSED / REVIEW result instead of a fabricated model response.
-6. Verify and export the record; use “Verify a file” to check the export. This checks internal consistency, not chain inclusion.
+**Actual interaction:** Seven FINALIZED/SUCCESS Studionet transactions exercised deployment and the create/acknowledge/cosmetic/material/cosmetic/re-acknowledge lifecycle. The public application read actual V1–V4, checked their digest/parent/epoch links, verified the complete deployed-source hash, displayed real native model reasons and exported the four-version chain record. Writes in this acceptance run used the authorized Studio built-in wallet; an external wallet was not connected to the public origin. The actual V1/V4 acknowledgement history is separately archived in the Finalized Studio evidence. A reader export with no connected viewer has an empty acknowledgement array and does not imply there are no chain acknowledgements.
 
-**Mandatory current disclosure:** This release is undeployed. The public app's authored examples are not real AI consensus or onchain evidence. Custom local revisions are always conservative review. Live wallet writes, real semantic consensus and fixed GenVM execution remain unverified. The implemented integration requires a separately deployed, source-verified contract. No contract address or transaction receipt can be supplied yet.
+**Reviewer walkthrough:**
+1. Open the site and select Studionet connection. Use the prefilled canonical contract address and `0x0a89623dae594e46beef902609ed37ea50b7d5b5::acceptance-v03` reference.
+2. Read the proposal. Inspect CANONICAL SOURCE VERIFIED, four versions, epoch 2 and the real five-dimension reasons/quotes.
+3. Compare the V1/V2 wording pair and the V2/V3 doubled-budget pair. Inspect V4 remaining in epoch 2.
+4. Verify the record and export JSON. This checks record integrity; a hash alone does not prove authorship or truth.
+5. Inspect the actual V1/V4 acknowledgement history and seven final receipts in docs/LIVE_ACCEPTANCE.md and evidence/studionet/.
+6. Switch to local fixtures to try authority, beneficiary, deadline, scope and missing-agreement examples. Their authored outcomes are not chain consensus. Custom local revisions remain UNASSESSED/REVIEW.
 
-**Submission gate:** BLOCKED. The Projects criterion requiring actual GenLayer interaction is not satisfied by fixtures, SDK Direct Mode or a published static site. Do not send this draft as a completed onchain product. Complete docs/DEPLOYMENT.md under separate authorization, archive real evidence and update only verified factual fields. Portal was not submitted.
+**Evidence:** Prior 26 frontend tests/lint/build and 29 Direct Mode contract tests are preserved as offline evidence. Deployment source bytes exactly match both repositories. Seven final receipts and actual network exports are public in the repositories.
+
+**Current disclosure / release gate:** BLOCKED pending the remaining live uncertainty, actual narrow-screen and external-wallet acceptance limits documented in docs/LIVE_ACCEPTANCE.md. The missing-terms Studio simulation returned null without visible labels; it is not a live consensus pass. Actual EIP-1193 public-app writes and mobile-device behavior were not claimed as tested. No Portal submission was made. Do not remove these limitations to present an incomplete acceptance as finished.
+
