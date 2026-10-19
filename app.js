@@ -671,11 +671,19 @@ $("guideStart").onclick = () => {
 };
 provider()?.on?.("accountsChanged", () => {
   connection = null;
+  if (mode === "live" && state) {
+    state.acknowledgements = [];
+    render();
+  }
   $("wallet").textContent = "Reconnect wallet";
   status("Wallet account changed. Read the proposal again before writing.");
 });
 provider()?.on?.("chainChanged", () => {
   connection = null;
+  if (mode === "live" && state) {
+    state.acknowledgements = [];
+    render();
+  }
   status("Network changed. Reconnect on Stable Studionet.");
 });
 await run(async () => {

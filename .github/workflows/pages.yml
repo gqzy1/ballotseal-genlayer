@@ -2,7 +2,7 @@ name: Verify and deploy BallotSeal
 on:
   pull_request:
   push:
-    branches: [main, feat/ballotseal-mvp]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read

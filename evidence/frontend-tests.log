@@ -7,157 +7,157 @@ TAP version 13
 # Subtest: scenario copy follows the contract epoch rule
 ok 1 - scenario copy follows the contract epoch rule
   ---
-  duration_ms: 25.598916
+  duration_ms: 28.456054
   type: 'test'
   ...
 # Subtest: scenario budget follows the contract epoch rule
 ok 2 - scenario budget follows the contract epoch rule
   ---
-  duration_ms: 2.511294
+  duration_ms: 19.795801
   type: 'test'
   ...
 # Subtest: scenario authority follows the contract epoch rule
 ok 3 - scenario authority follows the contract epoch rule
   ---
-  duration_ms: 1.862195
+  duration_ms: 10.780479
   type: 'test'
   ...
 # Subtest: scenario deadline follows the contract epoch rule
 ok 4 - scenario deadline follows the contract epoch rule
   ---
-  duration_ms: 1.437024
+  duration_ms: 173.142081
   type: 'test'
   ...
 # Subtest: scenario beneficiary follows the contract epoch rule
 ok 5 - scenario beneficiary follows the contract epoch rule
   ---
-  duration_ms: 2.429521
+  duration_ms: 774.758728
   type: 'test'
   ...
 # Subtest: scenario scope follows the contract epoch rule
 ok 6 - scenario scope follows the contract epoch rule
   ---
-  duration_ms: 1.777369
+  duration_ms: 3143.266416
   type: 'test'
   ...
 # Subtest: scenario uncertain follows the contract epoch rule
 ok 7 - scenario uncertain follows the contract epoch rule
   ---
-  duration_ms: 2.442962
+  duration_ms: 319.017245
   type: 'test'
   ...
 # Subtest: exact UTF8 SHA256 including emoji and whitespace
 ok 8 - exact UTF8 SHA256 including emoji and whitespace
   ---
-  duration_ms: 1.349262
+  duration_ms: 23.390882
   type: 'test'
   ...
 # Subtest: custom local input is always uncertain and invalidates old acknowledgement
 ok 9 - custom local input is always uncertain and invalidates old acknowledgement
   ---
-  duration_ms: 1.022482
+  duration_ms: 30.027365
   type: 'test'
   ...
 # Subtest: later same dimensions never resurrect an earlier epoch
 ok 10 - later same dimensions never resurrect an earlier epoch
   ---
-  duration_ms: 1.255575
+  duration_ms: 192.739415
   type: 'test'
   ...
 # Subtest: export round trip and tamper detection
 ok 11 - export round trip and tamper detection
   ---
-  duration_ms: 4.28326
+  duration_ms: 2448.157785
   type: 'test'
   ...
 # Subtest: bounds, no-change and duplicate acknowledgement guard
 ok 12 - bounds, no-change and duplicate acknowledgement guard
   ---
-  duration_ms: 1.885182
+  duration_ms: 489.787052
   type: 'test'
   ...
 # Subtest: rejects wrong wallet network before writes
 ok 13 - rejects wrong wallet network before writes
   ---
-  duration_ms: 2.23554
+  duration_ms: 9.28258
   type: 'test'
   ...
 # Subtest: receipt acceptance requires finalized successful execution
 ok 14 - receipt acceptance requires finalized successful execution
   ---
-  duration_ms: 0.326341
+  duration_ms: 0.259004
   type: 'test'
   ...
 # Subtest: JSON contract reads parsed
 ok 15 - JSON contract reads parsed
   ---
-  duration_ms: 1.224948
+  duration_ms: 2.286128
   type: 'test'
   ...
 # Subtest: missing wallet has useful error
 ok 16 - missing wallet has useful error
   ---
-  duration_ms: 0.237881
+  duration_ms: 0.261633
   type: 'test'
   ...
 # Subtest: copy full DOM walkthrough
 ok 17 - copy full DOM walkthrough
   ---
-  duration_ms: 299.062919
+  duration_ms: 843.502492
   type: 'test'
   ...
 # Subtest: budget full DOM walkthrough
 ok 18 - budget full DOM walkthrough
   ---
-  duration_ms: 143.954018
+  duration_ms: 738.554619
   type: 'test'
   ...
 # Subtest: authority full DOM walkthrough
 ok 19 - authority full DOM walkthrough
   ---
-  duration_ms: 135.771799
+  duration_ms: 169.422547
   type: 'test'
   ...
 # Subtest: deadline full DOM walkthrough
 ok 20 - deadline full DOM walkthrough
   ---
-  duration_ms: 118.394449
+  duration_ms: 174.078416
   type: 'test'
   ...
 # Subtest: beneficiary full DOM walkthrough
 ok 21 - beneficiary full DOM walkthrough
   ---
-  duration_ms: 116.897645
+  duration_ms: 180.072739
   type: 'test'
   ...
 # Subtest: scope full DOM walkthrough
 ok 22 - scope full DOM walkthrough
   ---
-  duration_ms: 115.084777
+  duration_ms: 109.793077
   type: 'test'
   ...
 # Subtest: uncertain full DOM walkthrough
 ok 23 - uncertain full DOM walkthrough
   ---
-  duration_ms: 107.089337
+  duration_ms: 170.215105
   type: 'test'
   ...
 # Subtest: custom seal, empty validation, missing AI disclosure and safe DOM output
 ok 24 - custom seal, empty validation, missing AI disclosure and safe DOM output
   ---
-  duration_ms: 99.803389
+  duration_ms: 111.973805
   type: 'test'
   ...
 # Subtest: diff, guide and chain empty states are interactive
 ok 25 - diff, guide and chain empty states are interactive
   ---
-  duration_ms: 86.81892
+  duration_ms: 108.82132
   type: 'test'
   ...
 # Subtest: narrow layouts and reduced-motion rules exist
 ok 26 - narrow layouts and reduced-motion rules exist
   ---
-  duration_ms: 44.564053
+  duration_ms: 79.094627
   type: 'test'
   ...
 1..26
@@ -168,4 +168,4 @@ ok 26 - narrow layouts and reduced-motion rules exist
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 1906.39204
+# duration_ms 16590.361548

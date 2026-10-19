@@ -170,12 +170,16 @@ export function validateAssessment(a, before, after) {
     const d = a[k];
     if (
       !d ||
+      Object.keys(d).sort().join() !==
+        ["label", "reason", "before_quote", "after_quote"].sort().join() ||
       !["SAME", "CHANGED", "UNCERTAIN"].includes(d.label) ||
       typeof d.reason !== "string" ||
       Array.from(d.reason.trim()).length < 20 ||
       Array.from(d.reason).length > 360
     )
       throw Error("Invalid " + k + " assessment.");
+    if (d.label === "CHANGED" && !(d.before_quote || d.after_quote))
+      throw Error("Missing changed-dimension evidence quote.");
     if (before !== undefined)
       for (const [field, text] of [
         ["before_quote", before],

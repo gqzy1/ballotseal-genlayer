@@ -45,7 +45,7 @@ def decode(raw, before: str, after: str) -> dict:
             raise ValueError('INVALID_DIMENSION')
         if not isinstance(item['label'], str) or item['label'] not in LABELS:
             raise ValueError('INVALID_LABEL')
-        if not isinstance(item['reason'], str) or not 20 <= len(item['reason'].strip()) <= 360:
+        if not isinstance(item['reason'], str) or len(item['reason'].strip()) < 20 or len(item['reason']) > 360:
             raise ValueError('INVALID_REASON')
         for field, text in [('before_quote', before), ('after_quote', after)]:
             quote = item[field]

@@ -3,7 +3,13 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import assert from "node:assert/strict";
 import * as domain from "../domain.js";
-const tick = () => new Promise((resolve) => setTimeout(resolve, 15));
+const tick = async (w) => {
+  for (let i = 0; i < 200; i++) {
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    if (!w.document.getElementById("assess").disabled) return;
+  }
+  throw Error("UI operation did not settle.");
+};
 async function page() {
   const dom = new JSDOM(await readFile("index.html", "utf8"), {
     runScripts: "outside-only",
@@ -41,9 +47,9 @@ for (const key of Object.keys(domain.CASES))
     const w = await page(),
       d = w.document;
     d.querySelector('[data-case="' + key + '"]').click();
-    await tick();
+    await tick(w);
     d.getElementById("assess").click();
-    await tick();
+    await tick(w);
     assert.equal(d.querySelectorAll(".dimension").length, 5);
     assert.match(
       d.getElementById("decisionTitle").textContent,
@@ -59,11 +65,11 @@ for (const key of Object.keys(domain.CASES))
       /^[0-9a-f]{64}$/,
     );
     d.getElementById("ack").click();
-    await tick();
+    await tick(w);
     assert.match(d.getElementById("ackStatus").textContent, /acknowledged V2/);
     assert.equal(d.querySelectorAll(".ackEvent").length, 2);
     d.getElementById("verify").click();
-    await tick();
+    await tick(w);
     assert.match(d.getElementById("status").textContent, /Verified:/);
     d.querySelector('[data-version="1"]').click();
     assert.equal(d.getElementById("recordText").textContent, domain.BASE);
@@ -73,18 +79,18 @@ test("custom seal, empty validation, missing AI disclosure and safe DOM output",
   const w = await page(),
     d = w.document;
   d.getElementById("newProposal").click();
-  await tick();
+  await tick(w);
   d.getElementById("seal").click();
-  await tick();
+  await tick(w);
   assert.match(d.getElementById("status").textContent, /20–6,000/);
   d.getElementById("title").value = "<img src=x onerror=alert(1)>";
   d.getElementById("after").value = domain.BASE;
   d.getElementById("seal").click();
-  await tick();
+  await tick(w);
   assert.equal(d.getElementById("proposalTitle").children.length, 0);
   d.getElementById("after").value = domain.BASE + " More terms.";
   d.getElementById("assess").click();
-  await tick();
+  await tick(w);
   assert.match(d.getElementById("status").textContent, /UNASSESSED/);
   assert.equal(d.querySelectorAll(".UNCERTAIN").length, 5);
   assert.match(d.getElementById("resultSource").textContent, /NOT AI/);
@@ -100,12 +106,12 @@ test("diff, guide and chain empty states are interactive", async () => {
   assert.ok(d.getElementById("guide").hasAttribute("open"));
   d.getElementById("guideStart").click();
   d.getElementById("live").click();
-  await tick();
+  await tick(w);
   assert.equal(d.getElementById("liveSettings").hidden, false);
   assert.equal(d.getElementById("scenarios").hidden, true);
   assert.match(d.getElementById("history").textContent, /No proposal/);
   d.getElementById("load").click();
-  await tick();
+  await tick(w);
   assert.match(d.getElementById("status").textContent, /valid nonzero/);
   w.close();
 });
