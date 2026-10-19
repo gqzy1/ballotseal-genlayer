@@ -1,0 +1,9 @@
+{
+  "chain_id": 61999,
+  "address": "0x01Da0016b86dA8DD85721A502Cb88B5dfb462d4c",
+  "transaction_hash": "0xd6a6c8a748dbe0ea31f31db1542f4f5026192ad3a5194d3ed8b2c67d53589def",
+  "canonical_source_sha256": "08deb1ff3faf647a239ae99d362894ab57e4a478d5f2c00b19e0f1585e7f39af",
+  "proposal_reference": "0x0a89623dae594e46beef902609ed37ea50b7d5b5::acceptance-v03",
+  "deployment_status": "FINALIZED",
+  "execution_result": "SUCCESS"
+}

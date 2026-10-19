@@ -1,0 +1,178 @@
+{
+  "network": "Stable GenLayer Studionet",
+  "chain_id": 61999,
+  "account": "0x0A89623dAe594e46BEef902609ED37eA50b7D5B5",
+  "authorization": "User explicitly approved built-in wallet deployment/signing and remaining acceptance; max 8 broadcasts",
+  "broadcasts_used": 7,
+  "transactions": [
+    {
+      "ordinal": 1,
+      "purpose": "deploy canonical BallotSeal V0.3",
+      "hash": "0xd6a6c8a748dbe0ea31f31db1542f4f5026192ad3a5194d3ed8b2c67d53589def",
+      "contract_address": "0x01Da0016b86dA8DD85721A502Cb88B5dfb462d4c",
+      "modal_status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "consensus_log_observed": "ACCEPTED / Contract deployed",
+      "finalized": true,
+      "consensus": "Accepted"
+    },
+    {
+      "ordinal": 2,
+      "purpose": "create V1",
+      "hash": "0x567f55e21e08c1153ee0e54eaa8f48927d2d9196e2afa5289d3632422bfd4ead",
+      "status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "reference": "0x0a89623dae594e46beef902609ed37ea50b7d5b5::acceptance-v03",
+      "readback": {
+        "state": "Finalized",
+        "head": 1,
+        "epoch": 1,
+        "digest": "2e5cd95aaed2c735de0b993403aa94c2824d89eb956fcf263eff54a97b8ba7e2"
+      }
+    },
+    {
+      "ordinal": 3,
+      "purpose": "acknowledge V1",
+      "hash": "0xfb33404a731ddbb61d286e709148c9de6188b6060b02e26257993ed672e93e58",
+      "status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "readback": {
+        "acknowledged_version": 1,
+        "current_version": 1,
+        "applicable": true,
+        "exact_current_version": true
+      }
+    },
+    {
+      "ordinal": 4,
+      "purpose": "wording-only V2",
+      "hash": "0x62db53b8ac94bfa2c9363b1249844ed7df6b4f958b74e691e8d5863c5ee86304",
+      "status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "consensus": "Accepted",
+      "assessment": {
+        "budget": "SAME",
+        "beneficiary": "SAME",
+        "scope": "SAME",
+        "deadline": "SAME",
+        "authority": "SAME"
+      },
+      "head": 2,
+      "epoch": 1,
+      "action": "CARRY",
+      "validator_note": "One validator cancelled after quorum (Idle); accepted result is not claimed as five unanimous completed executions.",
+      "acknowledgement_readback": {
+        "acknowledged_version": 1,
+        "current_version": 2,
+        "applicable": true,
+        "exact_current_version": false
+      }
+    },
+    {
+      "ordinal": 5,
+      "purpose": "budget doubles V3",
+      "hash": "0x6891e55d080b04f4760ad7dd3f265e1041f48e8ea76df4190bd9464239f13a34",
+      "status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "consensus": "Accepted",
+      "head": 3,
+      "epoch": 2,
+      "action": "RECONFIRM",
+      "assessment": {
+        "budget": "CHANGED",
+        "beneficiary": "SAME",
+        "scope": "SAME",
+        "deadline": "SAME",
+        "authority": "SAME"
+      },
+      "validator_note": "Two validators were cancelled after quorum; this is preserved in the observed receipt, not hidden as unanimous completion.",
+      "acknowledgement_readback": {
+        "acknowledged_version": 1,
+        "current_version": 3,
+        "applicable": false,
+        "exact_current_version": false
+      }
+    },
+    {
+      "ordinal": 6,
+      "purpose": "cosmetic V4 after material V3",
+      "hash": "0x4bc45631d04279523fd25deb847eb8ebb9aa39536d27cd4e602fbfdc2a0298ca",
+      "status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "consensus": "Accepted",
+      "head": 4,
+      "epoch": 2,
+      "action": "CARRY",
+      "assessment": {
+        "budget": "SAME",
+        "beneficiary": "SAME",
+        "scope": "SAME",
+        "deadline": "SAME",
+        "authority": "SAME"
+      },
+      "acknowledgement_readback": {
+        "acknowledged_version": 1,
+        "current_version": 4,
+        "applicable": false,
+        "exact_current_version": false
+      }
+    },
+    {
+      "ordinal": 7,
+      "purpose": "acknowledge latest V4",
+      "hash": "0x18c8d614a753699f291ecb41bd2497762d654a18054c88d7939560fd8b30385e",
+      "status": "FINALIZED",
+      "execution_result": "SUCCESS",
+      "acknowledgement_readback": {
+        "acknowledged_version": 4,
+        "current_version": 4,
+        "applicable": true,
+        "exact_current_version": true
+      }
+    }
+  ],
+  "source_sha256": "08deb1ff3faf647a239ae99d362894ab57e4a478d5f2c00b19e0f1585e7f39af",
+  "source_bytes": 9529,
+  "utc": "2026-10-19T17:44:22.824611+00:00",
+  "deployed_source_readback": {
+    "via": "official Explorer Contract Code DOM textContent",
+    "bytes": 9529,
+    "sha256": "08deb1ff3faf647a239ae99d362894ab57e4a478d5f2c00b19e0f1585e7f39af",
+    "identical_to_canonical": true
+  },
+  "product_readback": {
+    "url": "https://gqzy1.github.io/ballotseal-genlayer/",
+    "mode_badge": "STUDIONET / CANONICAL SOURCE VERIFIED",
+    "result": "Readback loaded and text digests verified. Block finality is not inferred from a read."
+  },
+  "acknowledgement_history": [
+    {
+      "version": 1,
+      "epoch": 1,
+      "digest": "2e5cd95aaed2c735de0b993403aa94c2824d89eb956fcf263eff54a97b8ba7e2"
+    },
+    {
+      "version": 4,
+      "epoch": 2,
+      "digest": "10fc8b64b287409271a9ca4c802f571ed1d5ded6d875f957069e70a98bc75698"
+    }
+  ],
+  "broadcasts_failed": 0,
+  "broadcasts_remaining": 1,
+  "limitations": [
+    "Actual narrow-screen browser acceptance unavailable: no viewport API; file:// QA navigation rejected by browser URL policy. No bypass attempted.",
+    "Writes used supported Studio built-in wallet; cross-origin EIP-1193 wallet writes in public frontend were not executed.",
+    "Direct terminal RPC retry rejected by auto-review; earlier HTTP403/1010 preserved. Official Studio/Explorer and product browser RPC reads succeeded."
+  ],
+  "simulation": {
+    "mode": "supported Studio Simulation Mode",
+    "method": "revise",
+    "expected_version": 4,
+    "result": null,
+    "labels_observable": false,
+    "claim": "No live UNCERTAIN-label pass is claimed.",
+    "new_broadcasts": 0,
+    "head_after": 4,
+    "epoch_after": 2
+  }
+}

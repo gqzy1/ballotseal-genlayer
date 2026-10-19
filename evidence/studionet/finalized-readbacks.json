@@ -1,0 +1,228 @@
+{
+  "v2_proposal": {
+    "protocol": "ballotseal-0.3",
+    "owner": "0x0a89623dae594e46beef902609ed37ea50b7d5b5",
+    "title": "Design Guild \u2014 version-bound grant",
+    "head": 2,
+    "epoch": 1,
+    "current": {
+      "text": "A total of 1,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit, due by 1 December 2026. No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.",
+      "digest": "53d746a15ca3a40c8b48e3946cd2d2b03a1b2afe8f1c8553a26ce0b6bab8a379",
+      "parent_digest": "2e5cd95aaed2c735de0b993403aa94c2824d89eb956fcf263eff54a97b8ba7e2",
+      "version": 2,
+      "epoch": 1,
+      "assessment": {
+        "budget": {
+          "after_quote": "total of 1,000 USDC will be paid to the Design Guild upon delivery",
+          "before_quote": "total budget of 1,000 USDC upon delivery",
+          "label": "SAME",
+          "reason": "The total amount of 1,000 USDC and the payment condition upon delivery remain identical."
+        },
+        "beneficiary": {
+          "after_quote": "will be paid to the Design Guild",
+          "before_quote": "The Design Guild shall receive",
+          "label": "SAME",
+          "reason": "The recipient of the funds is consistently identified as the Design Guild."
+        },
+        "scope": {
+          "after_quote": "delivery of one open-source logo kit",
+          "before_quote": "delivery of one open-source logo kit",
+          "label": "SAME",
+          "reason": "The deliverable remains a single open-source logo kit."
+        },
+        "deadline": {
+          "after_quote": "due by 1 December 2026",
+          "before_quote": "by 1 December 2026",
+          "label": "SAME",
+          "reason": "The due date remains 1 December 2026."
+        },
+        "authority": {
+          "after_quote": "No treasury access, administrator permissions, or authority to execute payments is granted",
+          "before_quote": "receives no treasury access, administrator permissions, or authority to execute payments",
+          "label": "SAME",
+          "reason": "The restriction on treasury access, administrator permissions, and payment execution is unchanged."
+        }
+      },
+      "action": "CARRY"
+    }
+  },
+  "v3_proposal": {
+    "protocol": "ballotseal-0.3",
+    "owner": "0x0a89623dae594e46beef902609ed37ea50b7d5b5",
+    "title": "Design Guild \u2014 version-bound grant",
+    "head": 3,
+    "epoch": 2,
+    "current": {
+      "text": "A total of 2,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit, due by 1 December 2026. No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.",
+      "digest": "8c6cb0948b533b13d3cc9c544effa252266bfce33be78f572ac46d93334ceb04",
+      "parent_digest": "53d746a15ca3a40c8b48e3946cd2d2b03a1b2afe8f1c8553a26ce0b6bab8a379",
+      "version": 3,
+      "epoch": 2,
+      "assessment": {
+        "budget": {
+          "after_quote": "A total of 2,000 USDC will be paid",
+          "before_quote": "A total of 1,000 USDC will be paid",
+          "label": "CHANGED",
+          "reason": "The total payment amount has been doubled from 1,000 USDC to 2,000 USDC, while the payment condition of delivery remains identical."
+        },
+        "beneficiary": {
+          "after_quote": "paid to the Design Guild",
+          "before_quote": "paid to the Design Guild",
+          "label": "SAME",
+          "reason": "The recipient of the funds remains the Design Guild in both versions of the proposal with no changes to their identity or status."
+        },
+        "scope": {
+          "after_quote": "delivery of one open-source logo kit",
+          "before_quote": "delivery of one open-source logo kit",
+          "label": "SAME",
+          "reason": "The required deliverable is consistently defined as one open-source logo kit across both documents with no additional obligations or exclusions."
+        },
+        "deadline": {
+          "after_quote": "due by 1 December 2026",
+          "before_quote": "due by 1 December 2026",
+          "label": "SAME",
+          "reason": "The project completion date is fixed at 1 December 2026 in both the original and updated versions of the proposal text."
+        },
+        "authority": {
+          "after_quote": "No treasury access, administrator permissions, or authority to execute payments is granted",
+          "before_quote": "No treasury access, administrator permissions, or authority to execute payments is granted",
+          "label": "SAME",
+          "reason": "Both versions explicitly deny the beneficiary any treasury access, administrative permissions, or payment execution authority."
+        }
+      },
+      "action": "RECONFIRM"
+    }
+  },
+  "v4_proposal": {
+    "protocol": "ballotseal-0.3",
+    "owner": "0x0a89623dae594e46beef902609ed37ea50b7d5b5",
+    "title": "Design Guild \u2014 version-bound grant",
+    "head": 4,
+    "epoch": 2,
+    "current": {
+      "text": "The Design Guild shall receive a total budget of 2,000 USDC upon delivery of one open-source logo kit by 1 December 2026. The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.",
+      "digest": "10fc8b64b287409271a9ca4c802f571ed1d5ded6d875f957069e70a98bc75698",
+      "parent_digest": "8c6cb0948b533b13d3cc9c544effa252266bfce33be78f572ac46d93334ceb04",
+      "version": 4,
+      "epoch": 2,
+      "assessment": {
+        "budget": {
+          "after_quote": "The Design Guild shall receive a total budget of 2,000 USDC upon delivery of one open-source logo kit",
+          "before_quote": "A total of 2,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit",
+          "label": "SAME",
+          "reason": "Both versions specify exactly 2,000 USDC as the total payment, triggered upon delivery of the logo kit. No change in amount, currency, or payment condition."
+        },
+        "beneficiary": {
+          "after_quote": "The Design Guild shall receive a total budget of 2,000 USDC",
+          "before_quote": "2,000 USDC will be paid to the Design Guild",
+          "label": "SAME",
+          "reason": "Both versions identify the Design Guild as the sole recipient. No change in recipient identity."
+        },
+        "scope": {
+          "after_quote": "upon delivery of one open-source logo kit",
+          "before_quote": "upon delivery of one open-source logo kit",
+          "label": "SAME",
+          "reason": "Both versions require delivery of one open-source logo kit as the sole deliverable. No additions, removals, or changes to acceptance conditions or exclusions."
+        },
+        "deadline": {
+          "after_quote": "by 1 December 2026",
+          "before_quote": "due by 1 December 2026",
+          "label": "SAME",
+          "reason": "Both versions set the same deadline of 1 December 2026 for delivery. No change in date or timing."
+        },
+        "authority": {
+          "after_quote": "The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.",
+          "before_quote": "No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.",
+          "label": "SAME",
+          "reason": "Both versions deny the Design Guild treasury access, administrator permissions, and authority to execute payments. The substantive restrictions are identical; only minor wording differs."
+        }
+      },
+      "action": "CARRY"
+    }
+  },
+  "v1_ack_after_v2": {
+    "acknowledged_version": 1,
+    "current_version": 2,
+    "applicable": true,
+    "exact_current_version": false
+  },
+  "v1_ack_after_v3": {
+    "acknowledged_version": 1,
+    "current_version": 3,
+    "applicable": false,
+    "exact_current_version": false
+  },
+  "v1_ack_after_v4": {
+    "acknowledged_version": 1,
+    "current_version": 4,
+    "applicable": false,
+    "exact_current_version": false
+  },
+  "latest_ack": {
+    "acknowledged_version": 4,
+    "current_version": 4,
+    "applicable": true,
+    "exact_current_version": true
+  },
+  "ack_history": [
+    {
+      "address": "0x0a89623dae594e46beef902609ed37ea50b7d5b5",
+      "version": 1,
+      "epoch": 1,
+      "digest": "2e5cd95aaed2c735de0b993403aa94c2824d89eb956fcf263eff54a97b8ba7e2"
+    },
+    {
+      "address": "0x0a89623dae594e46beef902609ed37ea50b7d5b5",
+      "version": 4,
+      "epoch": 2,
+      "digest": "10fc8b64b287409271a9ca4c802f571ed1d5ded6d875f957069e70a98bc75698"
+    }
+  ],
+  "after_simulation": {
+    "protocol": "ballotseal-0.3",
+    "owner": "0x0a89623dae594e46beef902609ed37ea50b7d5b5",
+    "title": "Design Guild \u2014 version-bound grant",
+    "head": 4,
+    "epoch": 2,
+    "current": {
+      "text": "The Design Guild shall receive a total budget of 2,000 USDC upon delivery of one open-source logo kit by 1 December 2026. The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.",
+      "digest": "10fc8b64b287409271a9ca4c802f571ed1d5ded6d875f957069e70a98bc75698",
+      "parent_digest": "8c6cb0948b533b13d3cc9c544effa252266bfce33be78f572ac46d93334ceb04",
+      "version": 4,
+      "epoch": 2,
+      "assessment": {
+        "budget": {
+          "after_quote": "The Design Guild shall receive a total budget of 2,000 USDC upon delivery of one open-source logo kit",
+          "before_quote": "A total of 2,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit",
+          "label": "SAME",
+          "reason": "Both versions specify exactly 2,000 USDC as the total payment, triggered upon delivery of the logo kit. No change in amount, currency, or payment condition."
+        },
+        "beneficiary": {
+          "after_quote": "The Design Guild shall receive a total budget of 2,000 USDC",
+          "before_quote": "2,000 USDC will be paid to the Design Guild",
+          "label": "SAME",
+          "reason": "Both versions identify the Design Guild as the sole recipient. No change in recipient identity."
+        },
+        "scope": {
+          "after_quote": "upon delivery of one open-source logo kit",
+          "before_quote": "upon delivery of one open-source logo kit",
+          "label": "SAME",
+          "reason": "Both versions require delivery of one open-source logo kit as the sole deliverable. No additions, removals, or changes to acceptance conditions or exclusions."
+        },
+        "deadline": {
+          "after_quote": "by 1 December 2026",
+          "before_quote": "due by 1 December 2026",
+          "label": "SAME",
+          "reason": "Both versions set the same deadline of 1 December 2026 for delivery. No change in date or timing."
+        },
+        "authority": {
+          "after_quote": "The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.",
+          "before_quote": "No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.",
+          "label": "SAME",
+          "reason": "Both versions deny the Design Guild treasury access, administrator permissions, and authority to execute payments. The substantive restrictions are identical; only minor wording differs."
+        }
+      },
+      "action": "CARRY"
+    }
+  }
+}

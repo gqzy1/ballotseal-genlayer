@@ -1,0 +1,46 @@
+Transaction Method Call
+17 minutes ago
+0xfb33404a731ddbb61d286e709148c9de6188b6060b02e26257993ed672e93e58
+Execution
+Status:
+FINALIZED
+Result:
+SUCCESS
+Input
+{"args":["0x0a89623dae594e46beef902609ed37ea50b7d5b5::acceptance-v03",1,]"method":"acknowledge"}
+Output
+null
+Consensus History
+Accepted
+PENDING
+→
+PROPOSING
+→
+COMMITTING
+→
+REVEALING
+→
+ACCEPTED
+Validator Set
+0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd
+llm-router / policy:prd-gemini
+SUCCESS
+Agree
+0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44
+llm-router / policy:prd-grok
+SUCCESS
+Agree
+0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e
+llm-router / policy:prd-gpt-5-4
+SUCCESS
+Agree
+0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb
+llm-router / policy:prd-kimi
+SUCCESS
+Agree
+0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00
+llm-router / policy:prd-deepseek
+SUCCESS
+Agree
+Full Transaction Data
+{...}

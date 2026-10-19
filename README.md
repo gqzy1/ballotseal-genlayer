@@ -1,6 +1,6 @@
 # BallotSeal — The terms changed. Did your consent?
 
-A complete static governance amendment desk built for GenLayer. **V0.3 is an undeployed candidate.** Local fixtures, custom unassessed drafts and network readbacks are explicitly separated. No live AI or transaction success is implied by the public walkthrough.
+A complete static governance amendment desk built for GenLayer. **V0.3 has a source-verified Stable Studionet deployment.** Local fixtures, custom unassessed drafts and network readbacks are explicitly separated. Fixtures do not imply live AI success; actual onchain evidence is recorded separately in [live acceptance](docs/LIVE_ACCEPTANCE.md).
 
 [Public app](https://ballotseal-gqzy1.zsf197176.chatgpt.site/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md) · [Projects submission draft](docs/SUBMISSION_PROJECTS.md).
 
@@ -11,7 +11,7 @@ A complete static governance amendment desk built for GenLayer. **V0.3 is an und
 3. Check the consent epoch. Only five SAME labels carry the epoch; material or uncertain results open a fresh one. Acknowledge the exact current version locally; old confirmation records remain visible.
 4. Click versions in the timeline, copy the text digest, verify the record and export JSON. “Verify a file” checks a prior export without loading it as trusted chain evidence.
 5. Choose “New proposal”, enter a title and complete text in AFTER, and seal V1. Local custom revisions always use UNASSESSED / REVIEW with five UNCERTAIN labels. No model is silently substituted.
-6. For a future verified deployment, select Studionet connection. Read-only loading requires no wallet. Writes require a wallet, matching canonical deployed source, chain/account checks and an explicit user signature.
+6. For the verified deployment, select Studionet connection and use the prefilled address/reference. Read-only loading requires no wallet. Writes require a wallet, matching canonical deployed source, chain/account checks and an explicit user signature.
 
 ## Build and verify
 
@@ -42,18 +42,19 @@ Serve `dist/` with a static host. No backend, database, private API key or paid 
 | docs/ | Architecture, API, security, runtime and submission material |
 | evidence/ | Real command outputs and release acceptance evidence |
 
-The contract protocol is `ballotseal-0.3`; changing its source requires synchronized A/B copies and a new verified deployment. `dist/release.json` is generated with the exact source digest and a null deployment address. The browser fails closed if deployed source differs. It does not deploy contracts.
+The contract protocol is `ballotseal-0.3`; changing its source requires synchronized A/B copies and a new verified deployment. `dist/release.json` is generated with the exact source digest and `deployments/studionet.json`. The browser fails closed if deployed source differs. It does not deploy contracts.
 
 ## Honest capability boundary
 
 SHA256 confirms exact text bytes, not authorship or truth. File verification checks internal consistency, not AI accuracy or onchain inclusion. An acknowledgement is not a vote, quorum, membership, legal consent or permission to execute funds. Explanations are accepted-leader annotations, with independent consensus over labels. Local state is browser-local and can be modified by its owner; export before clearing browser data.
 
-No production address is configured. Live semantic consensus, target fixed-GenVM execution and wallet E2E remain acceptance gates. The Projects task requires actual GenLayer interaction, so this release is **BLOCKED for final Projects submission** until separately authorized deployment and live evidence. Browser/static publication does not close that gap. No Portal submission was made.
+A verified Studionet address is configured. Seven actual transactions and real public-app reads are archived in [LIVE_ACCEPTANCE.md](docs/LIVE_ACCEPTANCE.md). Final release remains **BLOCKED** by the documented live uncertainty, narrow-screen and external-wallet acceptance limits. No Portal submission was made.
 
 MIT licensed.
 
-GitHub Pages is configured for Actions but its hosted workflow is still queued; no Pages deployment success is claimed. Intended Pages URL: https://gqzy1.github.io/ballotseal-genlayer/ . The live walkthrough above uses the existing public Site.
+GitHub Pages has successfully published and been operated in real Chrome: https://gqzy1.github.io/ballotseal-genlayer/ . The older public Site remains an offline walkthrough; use Pages for the current deployment configuration.
 
-## Latest deployment checkpoint
+## Latest live acceptance
 
-See [2026-10-19 deployment evidence and authorization](docs/FINAL_DEPLOYMENT_CHECKPOINT.md). CI and GitHub Pages have verified results; real deployment/model consensus and narrow-screen browser acceptance remain blocked. Authorized broadcasts used: 0/8. Historical release authorization statements are superseded by this checkpoint.
+See [actual deployment, seven final receipts and remaining gates](docs/LIVE_ACCEPTANCE.md). Canonical source remains unchanged; the full deployed bytes match A/B. Broadcast budget used: **7/8**. Historical no-deployment statements are superseded by this evidence. Final status remains **BLOCKED** until the documented acceptance gaps are resolved.
+

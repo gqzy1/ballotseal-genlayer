@@ -1,0 +1,48 @@
+Transaction Method Call
+16 minutes ago
+0x62db53b8ac94bfa2c9363b1249844ed7df6b4f958b74e691e8d5863c5ee86304
+Execution
+Status:
+FINALIZED
+Result:
+SUCCESS
+Input
+{"args":["acceptance-v03",1,"A total of 1,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit, due by 1 December 2026. No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.",]"method":"revise"}
+Output
+null
+Equivalence Principles Output
+Equivalence Principle #0:
+{"authority":{"after_quote":"No treasury access, administrator permissions, or authority to execute payments is granted""before_quote":"receives no treasury access, administrator permissions, or authority to execute payments""label":"SAME""reason":"The restriction on treasury access, administrator permissions, and payment execution is unchanged."}"beneficiary":{"after_quote":"will be paid to the Design Guild""before_quote":"The Design Guild shall receive""label":"SAME""reason":"The recipient of the funds is consistently identified as the Design Guild."}"budget":{"after_quote":"total of 1,000 USDC will be paid to the Design Guild upon delivery""before_quote":"total budget of 1,000 USDC upon delivery""label":"SAME""reason":"The total amount of 1,000 USDC and the payment condition upon delivery remain identical."}"deadline":{"after_quote":"due by 1 December 2026""before_quote":"by 1 December 2026""label":"SAME""reason":"The due date remains 1 December 2026."}"scope":{"after_quote":"delivery of one open-source logo kit""before_quote":"delivery of one open-source logo kit""label":"SAME""reason":"The deliverable remains a single open-source logo kit."}}
+Consensus History
+Accepted
+PENDING
+→
+PROPOSING
+→
+COMMITTING
+→
+REVEALING
+→
+ACCEPTED
+Validator Set
+0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05
+llm-router / policy:prd-gemma
+SUCCESS
+0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530
+llm-router / policy:prd-gpt-5-4
+SUCCESS
+Agree
+0xa21bc502E3578E4b3039be8c59a257198f7c3f19
+ERROR
+Idle
+Validator execution cancelled after quorum
+0xA712cB25a4002666FA9D09477251f238dD9e06b3
+llm-router / policy:prd-minimax
+SUCCESS
+Agree
+0x8a876C3F3a4783Bd123982bcBF3c672dc0239004
+llm-router / policy:prd-mistral
+SUCCESS
+Agree
+Full Transaction Data
+{...}

@@ -1,0 +1,49 @@
+Transaction Method Call
+13 minutes ago
+0x6891e55d080b04f4760ad7dd3f265e1041f48e8ea76df4190bd9464239f13a34
+Execution
+Status:
+FINALIZED
+Result:
+SUCCESS
+Input
+{"args":["acceptance-v03",2,"A total of 2,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit, due by 1 December 2026. No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.",]"method":"revise"}
+Output
+null
+Equivalence Principles Output
+Equivalence Principle #0:
+{"authority":{"after_quote":"No treasury access, administrator permissions, or authority to execute payments is granted""before_quote":"No treasury access, administrator permissions, or authority to execute payments is granted""label":"SAME""reason":"Both versions explicitly deny the beneficiary any treasury access, administrative permissions, or payment execution authority."}"beneficiary":{"after_quote":"paid to the Design Guild""before_quote":"paid to the Design Guild""label":"SAME""reason":"The recipient of the funds remains the Design Guild in both versions of the proposal with no changes to their identity or status."}"budget":{"after_quote":"A total of 2,000 USDC will be paid""before_quote":"A total of 1,000 USDC will be paid""label":"CHANGED""reason":"The total payment amount has been doubled from 1,000 USDC to 2,000 USDC, while the payment condition of delivery remains identical."}"deadline":{"after_quote":"due by 1 December 2026""before_quote":"due by 1 December 2026""label":"SAME""reason":"The project completion date is fixed at 1 December 2026 in both the original and updated versions of the proposal text."}"scope":{"after_quote":"delivery of one open-source logo kit""before_quote":"delivery of one open-source logo kit""label":"SAME""reason":"The required deliverable is consistently defined as one open-source logo kit across both documents with no additional obligations or exclusions."}}
+Consensus History
+Accepted
+PENDING
+→
+PROPOSING
+→
+COMMITTING
+→
+REVEALING
+→
+ACCEPTED
+Validator Set
+0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd
+llm-router / policy:prd-gemini
+SUCCESS
+Agree
+0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44
+llm-router / policy:prd-grok
+SUCCESS
+Agree
+0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb
+ERROR
+Idle
+Validator execution cancelled after quorum
+0xA712cB25a4002666FA9D09477251f238dD9e06b3
+ERROR
+Idle
+Validator execution cancelled after quorum
+0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10
+llm-router / policy:prd-qwen
+SUCCESS
+Agree
+Full Transaction Data
+{...}

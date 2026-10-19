@@ -1,0 +1,49 @@
+Transaction Method Call
+11 minutes ago
+0x4bc45631d04279523fd25deb847eb8ebb9aa39536d27cd4e602fbfdc2a0298ca
+Execution
+Status:
+FINALIZED
+Result:
+SUCCESS
+Input
+{"args":["acceptance-v03",3,"The Design Guild shall receive a total budget of 2,000 USDC upon delivery of one open-source logo kit by 1 December 2026. The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.",]"method":"revise"}
+Output
+null
+Equivalence Principles Output
+Equivalence Principle #0:
+{"authority":{"after_quote":"The Design Guild receives no treasury access, administrator permissions, or authority to execute payments.""before_quote":"No treasury access, administrator permissions, or authority to execute payments is granted to the Design Guild.""label":"SAME""reason":"Both versions deny the Design Guild treasury access, administrator permissions, and authority to execute payments. The substantive restrictions are identical; only minor wording differs."}"beneficiary":{"after_quote":"The Design Guild shall receive a total budget of 2,000 USDC""before_quote":"2,000 USDC will be paid to the Design Guild""label":"SAME""reason":"Both versions identify the Design Guild as the sole recipient. No change in recipient identity."}"budget":{"after_quote":"The Design Guild shall receive a total budget of 2,000 USDC upon delivery of one open-source logo kit""before_quote":"A total of 2,000 USDC will be paid to the Design Guild upon delivery of one open-source logo kit""label":"SAME""reason":"Both versions specify exactly 2,000 USDC as the total payment, triggered upon delivery of the logo kit. No change in amount, currency, or payment condition."}"deadline":{"after_quote":"by 1 December 2026""before_quote":"due by 1 December 2026""label":"SAME""reason":"Both versions set the same deadline of 1 December 2026 for delivery. No change in date or timing."}"scope":{"after_quote":"upon delivery of one open-source logo kit""before_quote":"upon delivery of one open-source logo kit""label":"SAME""reason":"Both versions require delivery of one open-source logo kit as the sole deliverable. No additions, removals, or changes to acceptance conditions or exclusions."}}
+Consensus History
+Accepted
+PENDING
+→
+PROPOSING
+→
+COMMITTING
+→
+REVEALING
+→
+ACCEPTED
+Validator Set
+0x892C437da9b9CA0b6017B6f046F58E3526B46ec6
+openrouter / anthropic/claude-sonnet-4.6
+SUCCESS
+Agree
+0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21
+ERROR
+Idle
+Validator execution cancelled after quorum
+0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb
+llm-router / policy:prd-kimi
+SUCCESS
+Agree
+0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05
+ERROR
+Idle
+Validator execution cancelled after quorum
+0xa21bc502E3578E4b3039be8c59a257198f7c3f19
+llm-router / policy:prd-gemini
+SUCCESS
+Agree
+Full Transaction Data
+{...}
