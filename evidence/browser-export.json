@@ -1,0 +1,75 @@
+{
+  "protocol": "ballotseal-0.3",
+  "mode": "local",
+  "title": "Design Guild / identity grant",
+  "trail": [
+    {
+      "version": 1,
+      "epoch": 1,
+      "text": "Pay the Design Guild 1,000 USDC to deliver one open-source logo kit by 1 December 2026. The guild receives no treasury or admin permissions.",
+      "digest": "37fc0e52b536ef60ee327f966dc9ff2470874e19d56c6e988bd084c50945a744",
+      "parent_digest": "",
+      "assessment": {},
+      "action": "INITIAL"
+    },
+    {
+      "version": 2,
+      "epoch": 2,
+      "text": "Pay the Design Guild for a logo kit under the budget, deadline, licensing and permission terms agreed in a private conversation.",
+      "digest": "c668bfabf893be45a5dc1aaa7bff966c5e67906ca95c0ccc83ca6a519d010503",
+      "parent_digest": "37fc0e52b536ef60ee327f966dc9ff2470874e19d56c6e988bd084c50945a744",
+      "assessment": {
+        "budget": {
+          "label": "UNCERTAIN",
+          "reason": "The new version refers to private budget terms rather than stating an amount or currency.",
+          "before_quote": "Pay the Design Guild 1,000 USDC to deliver one ope",
+          "after_quote": "Pay the Design Guild for a logo kit under the budg"
+        },
+        "beneficiary": {
+          "label": "SAME",
+          "reason": "Both versions name the Design Guild as the recipient.",
+          "before_quote": "Pay the Design Guild 1,000 USDC to deliver one ope",
+          "after_quote": "Pay the Design Guild for a logo kit under the budg"
+        },
+        "scope": {
+          "label": "UNCERTAIN",
+          "reason": "Open-source licensing and acceptance obligations depend on an unavailable private agreement.",
+          "before_quote": "Pay the Design Guild 1,000 USDC to deliver one ope",
+          "after_quote": "Pay the Design Guild for a logo kit under the budg"
+        },
+        "deadline": {
+          "label": "UNCERTAIN",
+          "reason": "The deadline is delegated to an unavailable private conversation.",
+          "before_quote": "Pay the Design Guild 1,000 USDC to deliver one ope",
+          "after_quote": "Pay the Design Guild for a logo kit under the budg"
+        },
+        "authority": {
+          "label": "UNCERTAIN",
+          "reason": "Permissions are described by reference to a missing private agreement.",
+          "before_quote": "Pay the Design Guild 1,000 USDC to deliver one ope",
+          "after_quote": "Pay the Design Guild for a logo kit under the budg"
+        }
+      },
+      "action": "REVIEW"
+    }
+  ],
+  "acknowledgements": [
+    {
+      "address": "local-viewer",
+      "version": 1,
+      "epoch": 1,
+      "digest": "37fc0e52b536ef60ee327f966dc9ff2470874e19d56c6e988bd084c50945a744"
+    },
+    {
+      "address": "local-viewer",
+      "version": 2,
+      "epoch": 2,
+      "digest": "c668bfabf893be45a5dc1aaa7bff966c5e67906ca95c0ccc83ca6a519d010503"
+    }
+  ],
+  "network": null,
+  "reference": null,
+  "contract": null,
+  "exported_at": "2026-10-19T16:23:10.534Z",
+  "notice": "Local fixtures are not AI or onchain evidence. SHA256 checks text integrity, not authenticity. Acknowledgements are not votes or legal consent."
+}

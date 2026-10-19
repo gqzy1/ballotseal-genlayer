@@ -1,0 +1,55 @@
+{
+  "url": "https://ballotseal-gqzy1.zsf197176.chatgpt.site/",
+  "method": "real Chrome UI clicks and rendered DOM observations",
+  "outcomes": [
+    {
+      "scenario": "copy",
+      "decision": "CARRY",
+      "epoch": 1,
+      "dimensions": 5,
+      "versions": 2
+    },
+    {
+      "scenario": "budget",
+      "decision": "RECONFIRM",
+      "epoch": 2,
+      "dimensions": 5,
+      "versions": 2
+    },
+    {
+      "scenario": "authority",
+      "decision": "RECONFIRM",
+      "epoch": 2,
+      "dimensions": 5,
+      "versions": 2
+    },
+    {
+      "scenario": "deadline",
+      "decision": "RECONFIRM",
+      "epoch": 2,
+      "dimensions": 5,
+      "versions": 2
+    },
+    {
+      "scenario": "beneficiary",
+      "decision": "RECONFIRM",
+      "epoch": 2,
+      "dimensions": 5,
+      "versions": 2
+    },
+    {
+      "scenario": "scope",
+      "decision": "RECONFIRM",
+      "epoch": 2,
+      "dimensions": 5,
+      "versions": 2
+    },
+    {
+      "scenario": "uncertain",
+      "decision": "REVIEW",
+      "epoch": 2,
+      "dimensions": 5,
+      "versions": 2
+    }
+  ]
+}

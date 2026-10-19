@@ -2,7 +2,7 @@
 
 A complete static governance amendment desk built for GenLayer. **V0.3 is an undeployed candidate.** Local fixtures, custom unassessed drafts and network readbacks are explicitly separated. No live AI or transaction success is implied by the public walkthrough.
 
-[Public app](https://gqzy1.github.io/ballotseal-genlayer/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md) · [Projects submission draft](docs/SUBMISSION_PROJECTS.md).
+[Public app](https://ballotseal-gqzy1.zsf197176.chatgpt.site/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md) · [Projects submission draft](docs/SUBMISSION_PROJECTS.md).
 
 ## Try the complete workflow
 
@@ -51,3 +51,5 @@ SHA256 confirms exact text bytes, not authorship or truth. File verification che
 No production address is configured. Live semantic consensus, target fixed-GenVM execution and wallet E2E remain acceptance gates. The Projects task requires actual GenLayer interaction, so this release is **BLOCKED for final Projects submission** until separately authorized deployment and live evidence. Browser/static publication does not close that gap. No Portal submission was made.
 
 MIT licensed.
+
+GitHub Pages is configured for Actions but its hosted workflow is still queued; no Pages deployment success is claimed. Intended Pages URL: https://gqzy1.github.io/ballotseal-genlayer/ . The live walkthrough above uses the existing public Site.

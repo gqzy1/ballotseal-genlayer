@@ -12,7 +12,7 @@
 
 **Intelligent Contract source:** https://github.com/gqzy1/ballot-seal-primitive
 
-**Public app:** https://gqzy1.github.io/ballotseal-genlayer/
+**Public app:** https://ballotseal-gqzy1.zsf197176.chatgpt.site/
 
 **Description:** BallotSeal is a governance proposal version-control and context-bound acknowledgement tool. It seals exact proposal text with a SHA-256 fingerprint, compares revisions across budget, beneficiary, delivery scope, deadline and authority, and makes consent-epoch changes visible. The complete product includes a seven-scenario interactive walkthrough, custom local sealing, text diffs, five-dimension reasons, version/acknowledgement history, integrity verification and JSON export. The native GenLayer contract independently classifies semantic changes and applies deterministic epoch transitions. The frontend implements source-verified wallet integration and readback checks.
 
