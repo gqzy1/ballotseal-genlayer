@@ -58,3 +58,45 @@ export function validRef(r) {
     throw Error("Use owner-address::local-id as the proposal reference.");
   return r;
 }
+
+export async function settledReceipt(reader, entry) {
+  const receipt = await reader.waitForTransactionReceipt({
+    hash: entry.hash,
+    status: "FINALIZED",
+    interval: 5000,
+    retries: 24,
+    fullTransaction: true,
+  });
+  if (finalizedOK(receipt)) return receipt;
+  if (typeof reader.request !== "function") return receipt;
+  const raw = await reader.request({
+    method: "eth_getTransactionByHash",
+    params: [entry.hash],
+  });
+  const same = (a, b) =>
+    typeof a === "string" &&
+    typeof b === "string" &&
+    a.toLowerCase() === b.toLowerCase();
+  if (
+    !same(raw?.hash, entry.hash) ||
+    !same(raw?.from_address ?? raw?.sender, entry.account) ||
+    !same(raw?.to_address ?? raw?.recipient, entry.address)
+  )
+    throw Error(
+      "Transaction readback identity mismatch. Pending hash retained.",
+    );
+  const consensus = raw.result_name === "MAJORITY_AGREE" || raw.result === 6;
+  if (!consensus || !finalizedOK(raw)) {
+    console.info("BallotSeal transaction execution", {
+      hash: entry.hash,
+      status: raw.status,
+      consensus: raw.result_name ?? raw.result,
+      leaders: raw.consensus_data?.leader_receipt?.map((leader) => ({
+        execution_result: leader.execution_result,
+        genvm_result: leader.genvm_result,
+      })),
+    });
+    return receipt;
+  }
+  return raw;
+}

@@ -4,6 +4,7 @@ import {
   parse,
   finalizedOK,
   finalized,
+  settledReceipt,
   validAddress,
   validRef,
 } from "./sdk.js";
@@ -299,12 +300,7 @@ async function settle(entry) {
     "Submitted " + entry.hash + " · waiting for FINALIZED. Do not resend.",
     "loading",
   );
-  const receipt = await reader.waitForTransactionReceipt({
-    hash: entry.hash,
-    status: "FINALIZED",
-    interval: 5000,
-    retries: 24,
-  });
+  const receipt = await settledReceipt(reader, entry);
   if (finalizedOK(receipt)) {
     await ensure();
     const key = pendingKey(account);
@@ -333,7 +329,9 @@ async function write(method, args) {
   const key = pendingKey(account);
   const old = localStorage.getItem(key);
   if (old) {
-    await settle(JSON.parse(old));
+    const pending = JSON.parse(old);
+    await settle(pending);
+    await reloadSettled(pending);
     throw Error(
       "Previous transaction resolved. Read the latest proposal before sending another write.",
     );
@@ -367,6 +365,14 @@ async function write(method, args) {
     );
   }
   await settle(entry);
+}
+async function reloadSettled(entry) {
+  const reference =
+    entry.method === "acknowledge"
+      ? entry.args[0]
+      : entry.account.toLowerCase() + "::" + entry.args[0];
+  $("ref").value = validRef(reference);
+  await load();
 }
 async function load() {
   const address = addr(),
@@ -550,8 +556,9 @@ $("resume").onclick = () =>
       throw Error(
         "No saved pending transaction for this account and contract.",
       );
-    await settle(JSON.parse(entry));
-    if ($("ref").value) await load();
+    const pending = JSON.parse(entry);
+    await settle(pending);
+    await reloadSettled(pending);
   });
 $("ack").onclick = () =>
   run(async () => {
