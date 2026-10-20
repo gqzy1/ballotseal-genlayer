@@ -20,9 +20,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Inspect pinned SDK receipt transformation
-        run: |
-          find node_modules/genlayer-js -type f | head -30
-          rg -n -m 12 'leaderReceipt|leader_receipt|executionResult|execution_result|fullTransaction|function getTransaction' node_modules/genlayer-js || true
+        run: rg --no-ignore -n -m 30 'leaderReceipt|leader_receipt|executionResult|execution_result|fullTransaction|function getTransaction|simplifyTransaction|consensusData' node_modules/genlayer-js/dist/index.js node_modules/genlayer-js/dist/chunk-*.js
       - run: npm run check
       - run: npm run lint
       - run: npm test
