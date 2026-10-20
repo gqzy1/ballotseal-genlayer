@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import assert from "node:assert/strict";
 import * as domain from "../domain.js";
+import { finalized, finalizedOK } from "../sdk.js";
 const tick = async (w) => {
   for (let i = 0; i < 200; i++) {
     await new Promise((resolve) => setTimeout(resolve, 5));
@@ -10,7 +11,7 @@ const tick = async (w) => {
   }
   throw Error("UI operation did not settle.");
 };
-async function page() {
+async function page(overrides = {}) {
   const dom = new JSDOM(await readFile("index.html", "utf8"), {
     runScripts: "outside-only",
     url: "https://example.com/ballotseal-genlayer/",
@@ -23,20 +24,22 @@ async function page() {
       throw Error("No wallet requested in tests.");
     },
     parse: JSON.parse,
-    finalizedOK: () => false,
+    finalized,
+    finalizedOK,
     validAddress: (a) => {
       if (!/^0x[0-9a-f]{40}$/.test(a))
         throw Error("Enter a valid nonzero contract address.");
       return a;
     },
     validRef: (r) => r,
+    ...overrides,
   };
   const code = (await readFile("app.js", "utf8")).replace(
     /^import[\s\S]*?;\n/gm,
     "",
   );
   await w.eval(
-    "(async()=>{const {connect,client,parse,finalizedOK,validAddress,validRef}=window.__sdk;const {PROTOCOL,DIMS,NAMES,BASE,CASES,seal,append,acknowledge,applicability,unknownAssessment,exportRecord,verifyRecord,sha256,validateText}=window.__domain;" +
+    "(async()=>{const {connect,client,parse,finalizedOK,finalized,validAddress,validRef}=window.__sdk;const {PROTOCOL,DIMS,NAMES,BASE,CASES,seal,append,acknowledge,applicability,unknownAssessment,exportRecord,verifyRecord,sha256,validateText}=window.__domain;" +
       code +
       "})()",
   );
@@ -136,5 +139,103 @@ test("narrow layouts and reduced-motion rules exist", async () => {
         d.getElementById(area).closest("label"),
     );
   assert.equal(d.getElementById("status").getAttribute("aria-live"), "polite");
+  w.close();
+});
+
+test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet", async () => {
+  const account = "0x" + "1".repeat(40);
+  const address = "0x" + "2".repeat(40);
+  const reference = account + "::lifecycle";
+  const source = await readFile("contracts/ballot_seal.py", "utf8");
+  const digest = await domain.sha256(source);
+  let record = null;
+  const writes = [], reads = [], pendingDuringWait = [];
+  let w;
+  const reader = {
+    getContractCode: async () => source,
+    writeContract: async ({ functionName, args }) => {
+      writes.push(functionName);
+      if (functionName === "create")
+        record = await domain.seal(args[1], args[2]);
+      else if (functionName === "revise") {
+        assert.equal(args[1], record.trail.length);
+        record = await domain.append(record, args[2], domain.unknownAssessment());
+      } else {
+        assert.equal(functionName, "acknowledge");
+        assert.equal(args[1], record.trail.length);
+        record = domain.acknowledge(record);
+      }
+      return "0x" + String(writes.length).repeat(64);
+    },
+    waitForTransactionReceipt: async ({ hash, status }) => {
+      assert.equal(status, "FINALIZED");
+      const key = "ballotseal-pending:61999:" + address + ":" + account;
+      pendingDuringWait.push(JSON.parse(w.localStorage.getItem(key)).hash);
+      assert.equal(pendingDuringWait.at(-1), hash);
+      return {
+        status_name: "FINALIZED",
+        consensus_data: { leader_receipt: [{ execution_result: "SUCCESS" }] },
+      };
+    },
+    readContract: async ({ functionName, args }) => {
+      reads.push(functionName);
+      if (functionName === "get_proposal") {
+        assert.equal(args[0], reference);
+        return JSON.stringify({
+          protocol: domain.PROTOCOL,
+          owner: account,
+          title: record.title,
+          head: record.trail.length,
+          current: record.trail.at(-1),
+        });
+      }
+      if (functionName === "get_version")
+        return JSON.stringify(record.trail[args[1] - 1]);
+      assert.equal(functionName, "get_acknowledgement_history");
+      return JSON.stringify(record.acknowledgements);
+    },
+  };
+  w = await page({ connect: async () => ({ account, client: reader }) });
+  const d = w.document;
+  w.ethereum = {
+    request: async ({ method }) => method === "eth_accounts" ? [account] : "0xf22f",
+  };
+  w.fetch = async () => ({ ok: true, json: async () => ({ contract_sha256: digest }) });
+  d.getElementById("live").click();
+  await tick(w);
+  d.getElementById("contract").value = address;
+  d.getElementById("localId").value = "lifecycle";
+  d.getElementById("title").value = "Live lifecycle regression";
+  d.getElementById("after").value = domain.BASE;
+  const key = "ballotseal-pending:61999:" + address + ":" + account;
+  for (const [button, text] of [
+    ["seal", domain.BASE],
+    ["assess", domain.BASE + " Additional deliverables require review."],
+    ["ack", null],
+  ]) {
+    if (text) d.getElementById("after").value = text;
+    const previousReads = reads.length;
+    d.getElementById(button).click();
+    await tick(w);
+    assert.equal(w.localStorage.getItem(key), null);
+    assert.ok(reads.length > previousReads, "successful writes reload state");
+    assert.equal(d.getElementById("status").dataset.kind, "success");
+    assert.equal(d.getElementById("assess").disabled, false);
+  }
+  assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
+  assert.equal(pendingDuringWait.length, 3);
+  assert.equal(d.querySelectorAll(".historyRow").length, 2);
+  assert.match(d.getElementById("ackStatus").textContent, /acknowledged V2/);
+  d.getElementById("demo").click();
+  await tick(w);
+  assert.equal(d.getElementById("liveSettings").hidden, true);
+  assert.equal(d.getElementById("scenarios").hidden, false);
+  assert.equal(d.getElementById("status").dataset.kind, "info");
+  assert.match(d.getElementById("modeBadge").textContent, /LOCAL FIXTURE/);
+  assert.equal(d.querySelectorAll(".historyRow").length, 1);
+  d.getElementById("assess").click();
+  await tick(w);
+  assert.equal(d.querySelectorAll(".historyRow").length, 2);
+  assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
   w.close();
 });

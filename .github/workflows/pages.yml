@@ -24,6 +24,12 @@ jobs:
       - run: npm test
       - run: npm run verify:source
       - run: npm run build
+      - run: npm run format:check
+      - name: Show formatter corrections
+        if: failure()
+        run: |
+          npx prettier --write app.js domain.js sdk.js style.css index.html
+          git diff --no-ext-diff
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
