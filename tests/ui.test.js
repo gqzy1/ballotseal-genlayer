@@ -145,148 +145,160 @@ test("narrow layouts and reduced-motion rules exist", async () => {
 
 for (const fault of ["none", "transient", "persistent"])
   test("SDK 1.1.8 lifecycle and readback recovery: " + fault, async () => {
-  const account = "0x" + "1".repeat(40);
-  const address = "0x" + "2".repeat(40);
-  const reference = account + "::lifecycle";
-  const source = await readFile("contracts/ballot_seal.py", "utf8");
-  const digest = await domain.sha256(source);
-  let record = null;
-  let failuresLeft = fault === "transient" ? 1 : fault === "persistent" ? 2 : 0;
-  const writes = [],
-    reads = [],
-    pendingDuringWait = [];
-  let w;
-  const reader = {
-    getContractCode: async () => source,
-    writeContract: async ({ functionName, args }) => {
-      writes.push(functionName);
-      if (functionName === "create")
-        record = await domain.seal(args[1], args[2]);
-      else if (functionName === "revise") {
-        assert.equal(args[1], record.trail.length);
-        record = await domain.append(
-          record,
-          args[2],
-          domain.unknownAssessment(),
-        );
-      } else {
-        assert.equal(functionName, "acknowledge");
-        assert.equal(args[1], record.trail.length);
-        record = domain.acknowledge(record);
-      }
-      return "0x" + String(writes.length).repeat(64);
-    },
-    waitForTransactionReceipt: async ({ hash, status, fullTransaction }) => {
-      assert.equal(fullTransaction, true);
-      assert.equal(status, "FINALIZED");
-      const key = "ballotseal-pending:61999:" + address + ":" + account;
-      pendingDuringWait.push(JSON.parse(w.localStorage.getItem(key)).hash);
-      assert.equal(pendingDuringWait.at(-1), hash);
-      return {
-        status_name: "FINALIZED",
-        consensus_data: { leader_receipt: [{ execution_result: "SUCCESS" }] },
-      };
-    },
-    readContract: async ({ functionName, args }) => {
-      reads.push(functionName);
-      if (functionName === "get_proposal") {
-        if (writes.length === 2 && failuresLeft > 0) {
-          failuresLeft--;
-          throw Error("An unknown RPC error occurred. Node temporarily unavailable.");
+    const account = "0x" + "1".repeat(40);
+    const address = "0x" + "2".repeat(40);
+    const reference = account + "::lifecycle";
+    const source = await readFile("contracts/ballot_seal.py", "utf8");
+    const digest = await domain.sha256(source);
+    let record = null;
+    let failuresLeft =
+      fault === "transient" ? 1 : fault === "persistent" ? 2 : 0;
+    const writes = [],
+      reads = [],
+      pendingDuringWait = [];
+    let w;
+    const reader = {
+      getContractCode: async () => source,
+      writeContract: async ({ functionName, args }) => {
+        writes.push(functionName);
+        if (functionName === "create")
+          record = await domain.seal(args[1], args[2]);
+        else if (functionName === "revise") {
+          assert.equal(args[1], record.trail.length);
+          record = await domain.append(
+            record,
+            args[2],
+            domain.unknownAssessment(),
+          );
+        } else {
+          assert.equal(functionName, "acknowledge");
+          assert.equal(args[1], record.trail.length);
+          record = domain.acknowledge(record);
         }
-        assert.equal(args[0], reference);
-        return JSON.stringify({
-          protocol: domain.PROTOCOL,
-          owner: account,
-          title: record.title,
-          head: record.trail.length,
-          current: record.trail.at(-1),
-        });
+        return "0x" + String(writes.length).repeat(64);
+      },
+      waitForTransactionReceipt: async ({ hash, status, fullTransaction }) => {
+        assert.equal(fullTransaction, true);
+        assert.equal(status, "FINALIZED");
+        const key = "ballotseal-pending:61999:" + address + ":" + account;
+        pendingDuringWait.push(JSON.parse(w.localStorage.getItem(key)).hash);
+        assert.equal(pendingDuringWait.at(-1), hash);
+        return {
+          status_name: "FINALIZED",
+          consensus_data: { leader_receipt: [{ execution_result: "SUCCESS" }] },
+        };
+      },
+      readContract: async ({ functionName, args }) => {
+        reads.push(functionName);
+        if (functionName === "get_proposal") {
+          if (writes.length === 2 && failuresLeft > 0) {
+            failuresLeft--;
+            throw Error(
+              "An unknown RPC error occurred. Node temporarily unavailable.",
+            );
+          }
+          assert.equal(args[0], reference);
+          return JSON.stringify({
+            protocol: domain.PROTOCOL,
+            owner: account,
+            title: record.title,
+            head: record.trail.length,
+            current: record.trail.at(-1),
+          });
+        }
+        if (functionName === "get_version")
+          return JSON.stringify(record.trail[args[1] - 1]);
+        assert.equal(functionName, "get_acknowledgement_history");
+        return JSON.stringify(record.acknowledgements);
+      },
+    };
+    w = await page({ connect: async () => ({ account, client: reader }) });
+    const d = w.document;
+    w.ethereum = {
+      request: async ({ method }) =>
+        method === "eth_accounts" ? [account] : "0xf22f",
+    };
+    w.fetch = async () => ({
+      ok: true,
+      json: async () => ({ contract_sha256: digest }),
+    });
+    d.getElementById("live").click();
+    await tick(w);
+    d.getElementById("contract").value = address;
+    d.getElementById("localId").value = "lifecycle";
+    d.getElementById("title").value = "Live lifecycle regression";
+    d.getElementById("after").value = domain.BASE;
+    const key = "ballotseal-pending:61999:" + address + ":" + account;
+    for (const [button, text] of [
+      ["seal", domain.BASE],
+      ["assess", domain.BASE + " Additional deliverables require review."],
+      ["ack", null],
+    ]) {
+      if (text) d.getElementById("after").value = text;
+      const previousReads = reads.length;
+      d.getElementById(button).click();
+      await tick(w);
+      assert.equal(w.localStorage.getItem(key), null);
+      const refreshKey = key.replace(
+        "ballotseal-pending:",
+        "ballotseal-readback:",
+      );
+      if (button === "assess" && fault === "persistent") {
+        assert.match(
+          d.getElementById("status").textContent,
+          /FINALIZED \/ SUCCESS/,
+        );
+        assert.match(
+          d.getElementById("status").textContent,
+          /State refresh failed/,
+        );
+        assert.ok(w.localStorage.getItem(refreshKey));
+        const polls = pendingDuringWait.length;
+        const sent = writes.length;
+        d.getElementById("ref").value = "";
+        d.getElementById("resume").click();
+        await tick(w);
+        assert.equal(pendingDuringWait.length, polls);
+        assert.equal(writes.length, sent);
+        assert.equal(d.getElementById("ref").value, reference);
       }
-      if (functionName === "get_version")
-        return JSON.stringify(record.trail[args[1] - 1]);
-      assert.equal(functionName, "get_acknowledgement_history");
-      return JSON.stringify(record.acknowledgements);
-    },
-  };
-  w = await page({ connect: async () => ({ account, client: reader }) });
-  const d = w.document;
-  w.ethereum = {
-    request: async ({ method }) =>
-      method === "eth_accounts" ? [account] : "0xf22f",
-  };
-  w.fetch = async () => ({
-    ok: true,
-    json: async () => ({ contract_sha256: digest }),
-  });
-  d.getElementById("live").click();
-  await tick(w);
-  d.getElementById("contract").value = address;
-  d.getElementById("localId").value = "lifecycle";
-  d.getElementById("title").value = "Live lifecycle regression";
-  d.getElementById("after").value = domain.BASE;
-  const key = "ballotseal-pending:61999:" + address + ":" + account;
-  for (const [button, text] of [
-    ["seal", domain.BASE],
-    ["assess", domain.BASE + " Additional deliverables require review."],
-    ["ack", null],
-  ]) {
-    if (text) d.getElementById("after").value = text;
-    const previousReads = reads.length;
-    d.getElementById(button).click();
+      assert.equal(w.localStorage.getItem(refreshKey), null);
+      assert.ok(reads.length > previousReads, "successful writes reload state");
+      assert.equal(d.getElementById("status").dataset.kind, "success");
+      assert.equal(d.getElementById("assess").disabled, false);
+    }
+    assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
+    w.localStorage.setItem(
+      key,
+      JSON.stringify({
+        hash: "0x" + "3".repeat(64),
+        address,
+        account,
+        method: "acknowledge",
+        args: [reference, 2],
+      }),
+    );
+    d.getElementById("ref").value = "";
+    const beforeRecovery = reads.length;
+    d.getElementById("resume").click();
     await tick(w);
     assert.equal(w.localStorage.getItem(key), null);
-    const refreshKey = key.replace("ballotseal-pending:", "ballotseal-readback:");
-    if (button === "assess" && fault === "persistent") {
-      assert.match(d.getElementById("status").textContent, /FINALIZED \/ SUCCESS/);
-      assert.match(d.getElementById("status").textContent, /State refresh failed/);
-      assert.ok(w.localStorage.getItem(refreshKey));
-      const polls = pendingDuringWait.length;
-      const sent = writes.length;
-      d.getElementById("ref").value = "";
-      d.getElementById("resume").click();
-      await tick(w);
-      assert.equal(pendingDuringWait.length, polls);
-      assert.equal(writes.length, sent);
-      assert.equal(d.getElementById("ref").value, reference);
-    }
-    assert.equal(w.localStorage.getItem(refreshKey), null);
-    assert.ok(reads.length > previousReads, "successful writes reload state");
-    assert.equal(d.getElementById("status").dataset.kind, "success");
-    assert.equal(d.getElementById("assess").disabled, false);
-  }
-  assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
-  w.localStorage.setItem(
-    key,
-    JSON.stringify({
-      hash: "0x" + "3".repeat(64),
-      address,
-      account,
-      method: "acknowledge",
-      args: [reference, 2],
-    }),
-  );
-  d.getElementById("ref").value = "";
-  const beforeRecovery = reads.length;
-  d.getElementById("resume").click();
-  await tick(w);
-  assert.equal(w.localStorage.getItem(key), null);
-  assert.equal(d.getElementById("ref").value, reference);
-  assert.ok(reads.length > beforeRecovery);
-  assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
-  assert.equal(pendingDuringWait.length, 4);
-  assert.equal(d.querySelectorAll(".historyRow").length, 2);
-  assert.match(d.getElementById("ackStatus").textContent, /acknowledged V2/);
-  d.getElementById("demo").click();
-  await tick(w);
-  assert.equal(d.getElementById("liveSettings").hidden, true);
-  assert.equal(d.getElementById("scenarios").hidden, false);
-  assert.equal(d.getElementById("status").dataset.kind, "info");
-  assert.match(d.getElementById("modeBadge").textContent, /LOCAL FIXTURE/);
-  assert.equal(d.querySelectorAll(".historyRow").length, 1);
-  d.getElementById("assess").click();
-  await tick(w);
-  assert.equal(d.querySelectorAll(".historyRow").length, 2);
-  assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
-  w.close();
-});
+    assert.equal(d.getElementById("ref").value, reference);
+    assert.ok(reads.length > beforeRecovery);
+    assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
+    assert.equal(pendingDuringWait.length, 4);
+    assert.equal(d.querySelectorAll(".historyRow").length, 2);
+    assert.match(d.getElementById("ackStatus").textContent, /acknowledged V2/);
+    d.getElementById("demo").click();
+    await tick(w);
+    assert.equal(d.getElementById("liveSettings").hidden, true);
+    assert.equal(d.getElementById("scenarios").hidden, false);
+    assert.equal(d.getElementById("status").dataset.kind, "info");
+    assert.match(d.getElementById("modeBadge").textContent, /LOCAL FIXTURE/);
+    assert.equal(d.querySelectorAll(".historyRow").length, 1);
+    d.getElementById("assess").click();
+    await tick(w);
+    assert.equal(d.querySelectorAll(".historyRow").length, 2);
+    assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
+    w.close();
+  });

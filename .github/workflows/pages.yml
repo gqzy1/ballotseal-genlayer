@@ -19,10 +19,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Format recovery implementation
-        run: npx prettier --write app.js tests/ui.test.js
-      - name: Show formatting changes
-        run: git diff --no-ext-diff
       - run: npm run check
       - run: npm run lint
       - run: npm test

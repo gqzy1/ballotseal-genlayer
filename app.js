@@ -276,13 +276,18 @@ function pendingKey(account) {
   );
 }
 function readbackKey(account) {
-  return pendingKey(account).replace("ballotseal-pending:", "ballotseal-readback:");
+  return pendingKey(account).replace(
+    "ballotseal-pending:",
+    "ballotseal-readback:",
+  );
 }
 function rpcDetail(error) {
   return [
     error.shortMessage ?? error.message,
     error.details ?? error.cause?.message,
-  ].filter(Boolean).join(" · ");
+  ]
+    .filter(Boolean)
+    .join(" · ");
 }
 async function load() {
   for (let attempt = 0; attempt < 2; attempt++) {
@@ -291,7 +296,9 @@ async function load() {
     } catch (error) {
       const detail = rpcDetail(error);
       const transient =
-        /unknown rpc|internal rpc|network|fetch failed|timeout|timed out|429|502|503|504/i.test(detail);
+        /unknown rpc|internal rpc|network|fetch failed|timeout|timed out|429|502|503|504/i.test(
+          detail,
+        );
       if (!transient || attempt === 1) throw Error(detail);
       status("RPC read interrupted. Retrying state refresh once…", "loading");
       await new Promise((resolve) => setTimeout(resolve, 400));
@@ -363,7 +370,9 @@ async function write(method, args) {
   const refresh = localStorage.getItem(readbackKey(account));
   if (refresh) {
     await reloadSettled(JSON.parse(refresh));
-    throw Error("Confirmed state refreshed. Review it before sending another write.");
+    throw Error(
+      "Confirmed state refreshed. Review it before sending another write.",
+    );
   }
   localStorage.setItem(key, "storage-check");
   localStorage.removeItem(key);
@@ -407,9 +416,11 @@ async function reloadSettled(entry) {
     localStorage.removeItem(readbackKey(entry.account));
   } catch (error) {
     throw Error(
-      "FINALIZED / SUCCESS · " + entry.hash +
-      ". State refresh failed: " + rpcDetail(error) +
-      ". Use Check pending transaction to retry the read only. Do not resend.",
+      "FINALIZED / SUCCESS · " +
+        entry.hash +
+        ". State refresh failed: " +
+        rpcDetail(error) +
+        ". Use Check pending transaction to retry the read only. Do not resend.",
     );
   }
 }
@@ -593,7 +604,9 @@ $("resume").onclick = () =>
         await reloadSettled(JSON.parse(refresh));
         return;
       }
-      throw Error("No saved pending transaction for this account and contract.");
+      throw Error(
+        "No saved pending transaction for this account and contract.",
+      );
     }
     const pending = JSON.parse(entry);
     await settle(pending);

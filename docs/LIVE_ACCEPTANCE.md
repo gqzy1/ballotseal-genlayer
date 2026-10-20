@@ -49,12 +49,30 @@ Chrome device-toolbar checks covered 320×844 and 390×844 layouts, record verif
 
 - Live missing-terms UNCERTAIN labels/reasons were not observable in the dry run. Fail-closed state rules are covered by Direct Mode tests with mocked outputs.
 - The live semantic scenarios cover cosmetic wording and a doubled budget. Authority, beneficiary, deadline and scope fixtures were not repeated onchain.
-- Writes used Studio's built-in account. Public-app external EIP-1193 writes, rejection and account-switch behavior remain untested; adapter tests use mocks.
+- The original seven transactions used Studio's built-in account. The later deployed-frontend lifecycle below used one connected wallet. Live rejection and account-switch cases remain untested; automated wallet tests use mocks.
 - No local WASM/Docker execution or host image digest is claimed. Actual hosted GenVM execution is evidenced by the deployed lifecycle.
 - Terminal RPC POST returned HTTP403/1010 in the acceptance environment. Official Studio, Explorer and supported product browser reads succeeded; terminal access is not claimed resolved.
 
 ## Automated evidence
 
-29 contract Direct Mode tests, pinned SDK/linter/schema/type/source checks, 26 frontend tests, lint and production build passed. The address-configured bundle also passed `node --check app.js` and `npm run build`. See [validation](../VALIDATION.md) and the raw evidence directory.
+29 contract Direct Mode tests, pinned SDK/linter/schema/type/source checks, 33 frontend tests, lint and production build passed. The address-configured bundle also passed `node --check app.js` and `npm run build`. See [validation](../VALIDATION.md) and the raw evidence directory.
 
 Contract source and deterministic business rules are unchanged.
+
+
+## Deployed frontend lifecycle — 2026-10-21
+
+Manual Chrome acceptance used genlayer-js 1.1.8 on chain 61999 with the same connected wallet, `0xEB56F245EFEceD0899b7e23697FeE512a39DBdCc`.
+Proposal: `0xeb56f245efeced0899b7e23697fee512a39dbdcc::web-lifecycle-20261021`.
+
+| Call | Transaction hash | Manually inspected receipt |
+|---|---|---|
+| create V1 | `0x7c412331bb04c40091cd9aa601225ce900f1bcb3d33b841bfb194ed721137349` | FINALIZED / SUCCESS |
+| revise V2 | `0xc2ac0d9a18394cee793b07000a0399f139824acec683632adb3399072646d32f` | FINALIZED / SUCCESS |
+| acknowledge V2 | `0xd93dc55d748809c8dcaef504301f045e639fe3a43cc0b90ad6165bf2cdb038ab` | FINALIZED / SUCCESS |
+
+The budget changed from 100 to 200 USDC. The final application view showed “Applicable · acknowledged V2”; JSON was downloaded. The revision receipt contained successful execution and a nonfatal quorum-cancelled entry. PR #9 corrected their classification.
+
+During recovery, the pending marker was cleared, but an RPC error interrupted the following state read. A manual Read proposal restored V2. This run therefore does not establish uninterrupted automatic refresh. PR #10 adds bounded read retry and a persistent post-finality readback checkpoint; its recovery tests use simulated RPC failures and are not an additional live write run.
+
+Receipt statuses above were manually inspected in the browser. The transaction identifiers permit independent Explorer verification; no new raw-receipt archive or independently reverified export digest is claimed for this run.
