@@ -19,10 +19,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Format application and tests
-        run: npx prettier --write app.js sdk.js tests/sdk.test.js tests/ui.test.js
-      - name: Show formatter output
-        run: git diff --no-ext-diff
       - run: npm run check
       - run: npm run lint
       - run: npm test

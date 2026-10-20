@@ -150,7 +150,9 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
   const source = await readFile("contracts/ballot_seal.py", "utf8");
   const digest = await domain.sha256(source);
   let record = null;
-  const writes = [], reads = [], pendingDuringWait = [];
+  const writes = [],
+    reads = [],
+    pendingDuringWait = [];
   let w;
   const reader = {
     getContractCode: async () => source,
@@ -160,7 +162,11 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
         record = await domain.seal(args[1], args[2]);
       else if (functionName === "revise") {
         assert.equal(args[1], record.trail.length);
-        record = await domain.append(record, args[2], domain.unknownAssessment());
+        record = await domain.append(
+          record,
+          args[2],
+          domain.unknownAssessment(),
+        );
       } else {
         assert.equal(functionName, "acknowledge");
         assert.equal(args[1], record.trail.length);
@@ -200,9 +206,13 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
   w = await page({ connect: async () => ({ account, client: reader }) });
   const d = w.document;
   w.ethereum = {
-    request: async ({ method }) => method === "eth_accounts" ? [account] : "0xf22f",
+    request: async ({ method }) =>
+      method === "eth_accounts" ? [account] : "0xf22f",
   };
-  w.fetch = async () => ({ ok: true, json: async () => ({ contract_sha256: digest }) });
+  w.fetch = async () => ({
+    ok: true,
+    json: async () => ({ contract_sha256: digest }),
+  });
   d.getElementById("live").click();
   await tick(w);
   d.getElementById("contract").value = address;
@@ -225,10 +235,16 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
     assert.equal(d.getElementById("assess").disabled, false);
   }
   assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
-  w.localStorage.setItem(key, JSON.stringify({
-    hash: "0x" + "3".repeat(64), address, account,
-    method: "acknowledge", args: [reference, 2],
-  }));
+  w.localStorage.setItem(
+    key,
+    JSON.stringify({
+      hash: "0x" + "3".repeat(64),
+      address,
+      account,
+      method: "acknowledge",
+      args: [reference, 2],
+    }),
+  );
   d.getElementById("ref").value = "";
   const beforeRecovery = reads.length;
   d.getElementById("resume").click();

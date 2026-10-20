@@ -82,9 +82,10 @@ export async function settledReceipt(reader, entry) {
     !same(raw?.from_address ?? raw?.sender, entry.account) ||
     !same(raw?.to_address ?? raw?.recipient, entry.address)
   )
-    throw Error("Transaction readback identity mismatch. Pending hash retained.");
-  const consensus =
-    raw.result_name === "MAJORITY_AGREE" || raw.result === 6;
+    throw Error(
+      "Transaction readback identity mismatch. Pending hash retained.",
+    );
+  const consensus = raw.result_name === "MAJORITY_AGREE" || raw.result === 6;
   if (!consensus || !finalizedOK(raw)) {
     console.info("BallotSeal transaction execution", {
       hash: entry.hash,

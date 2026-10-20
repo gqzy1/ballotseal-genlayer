@@ -1,6 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { connect, finalized, finalizedOK, parse, settledReceipt } from "../sdk.js";
+import {
+  connect,
+  finalized,
+  finalizedOK,
+  parse,
+  settledReceipt,
+} from "../sdk.js";
 test("rejects wrong wallet network before writes", async () => {
   await assert.rejects(
     () =>
@@ -41,17 +47,25 @@ test("raw consensus receipt success is recognized without a legacy status field"
     { ...receipt, status: "PENDING" },
     { status_name: "FINALIZED" },
     { ...receipt, execution_result: "FAILURE" },
-    { ...receipt, consensus_data: { leader_receipt: [{ execution_result: "ERROR" }] } },
+    {
+      ...receipt,
+      consensus_data: { leader_receipt: [{ execution_result: "ERROR" }] },
+    },
     { ...receipt, consensus_data: { leader_receipt: [] } },
-  ]) assert.equal(finalizedOK(candidate), false);
-  assert.equal(finalizedOK({
-    statusName: "FINALIZED",
-    txExecutionResultName: "FINISHED_WITH_RETURN",
-  }), true);
+  ])
+    assert.equal(finalizedOK(candidate), false);
+  assert.equal(
+    finalizedOK({
+      statusName: "FINALIZED",
+      txExecutionResultName: "FINISHED_WITH_RETURN",
+    }),
+    true,
+  );
 });
 
 test("pinned SDK full and simplified receipt shapes retain successful execution", async () => {
-  const { simplifyTransactionReceipt, decodeLocalnetTransaction } = await import("genlayer-js");
+  const { simplifyTransactionReceipt, decodeLocalnetTransaction } =
+    await import("genlayer-js");
   const full = decodeLocalnetTransaction({
     hash: "0x" + "a".repeat(64),
     status: 7,
@@ -75,14 +89,18 @@ test("pending recovery verifies the same finalized transaction through connected
     address: "0x01Da0016b86dA8DD85721A502Cb88B5dfb462d4c",
   };
   const raw = {
-    hash: entry.hash, from_address: entry.account, to_address: entry.address,
-    status: "FINALIZED", result: 6,
+    hash: entry.hash,
+    from_address: entry.account,
+    to_address: entry.address,
+    status: "FINALIZED",
+    result: 6,
     consensus_data: {
       leader_receipt: [{ execution_result: "SUCCESS" }],
       validators: [{ vote: "idle", execution_result: "ERROR" }],
     },
   };
-  let current = raw, requests = 0;
+  let current = raw,
+    requests = 0;
   const reader = {
     waitForTransactionReceipt: async (options) => {
       assert.equal(options.fullTransaction, true);
@@ -102,7 +120,10 @@ test("pending recovery verifies the same finalized transaction through connected
     { to_address: "0x" + "0".repeat(40) },
   ]) {
     current = { ...raw, ...change };
-    await assert.rejects(() => settledReceipt(reader, entry), /identity mismatch/);
+    await assert.rejects(
+      () => settledReceipt(reader, entry),
+      /identity mismatch/,
+    );
   }
   for (const change of [
     { status: "ACCEPTED" },
