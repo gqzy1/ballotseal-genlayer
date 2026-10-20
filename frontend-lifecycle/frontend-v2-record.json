@@ -1,0 +1,69 @@
+{
+  "protocol": "ballotseal-0.3",
+  "mode": "onchain",
+  "title": "Frontend lifecycle verification",
+  "trail": [
+    {
+      "text": "Allocate 100 USDC to Design Guild to deliver one logo by 2026-12-31. Authorization is limited to this one-time payment. No treasury access or administrator permissions are granted.",
+      "digest": "c7e7065d992b64d2222abee4ddb6947b116628d834bbaa309eec9601fb1ebca4",
+      "parent_digest": "",
+      "version": 1,
+      "epoch": 1,
+      "assessment": {},
+      "action": "INITIAL"
+    },
+    {
+      "text": "Allocate 200 USDC to Design Guild to deliver one logo by 2026-12-31. Authorization is limited to this one-time payment. No treasury access or administrator permissions are granted.",
+      "digest": "9076aa58508e142de15bb460287202abcbc192ea3f5cc9f02ac4650293380efd",
+      "parent_digest": "c7e7065d992b64d2222abee4ddb6947b116628d834bbaa309eec9601fb1ebca4",
+      "version": 2,
+      "epoch": 2,
+      "assessment": {
+        "budget": {
+          "after_quote": "Allocate 200 USDC",
+          "before_quote": "Allocate 100 USDC",
+          "label": "CHANGED",
+          "reason": "The allocation amount has increased from 100 USDC to 200 USDC."
+        },
+        "beneficiary": {
+          "after_quote": "to Design Guild",
+          "before_quote": "to Design Guild",
+          "label": "SAME",
+          "reason": "The recipient remains the Design Guild in both versions."
+        },
+        "scope": {
+          "after_quote": "to deliver one logo",
+          "before_quote": "to deliver one logo",
+          "label": "SAME",
+          "reason": "The deliverable remains the delivery of one logo."
+        },
+        "deadline": {
+          "after_quote": "by 2026-12-31",
+          "before_quote": "by 2026-12-31",
+          "label": "SAME",
+          "reason": "The completion date remains 2026-12-31."
+        },
+        "authority": {
+          "after_quote": "Authorization is limited to this one-time payment. No treasury access or administrator permissions are granted.",
+          "before_quote": "Authorization is limited to this one-time payment. No treasury access or administrator permissions are granted.",
+          "label": "SAME",
+          "reason": "The authorization limits and restrictions on treasury/administrator access are identical."
+        }
+      },
+      "action": "RECONFIRM"
+    }
+  ],
+  "acknowledgements": [
+    {
+      "address": "0xeb56f245efeced0899b7e23697fee512a39dbdcc",
+      "version": 2,
+      "epoch": 2,
+      "digest": "9076aa58508e142de15bb460287202abcbc192ea3f5cc9f02ac4650293380efd"
+    }
+  ],
+  "network": 61999,
+  "reference": "0xeb56f245efeced0899b7e23697fee512a39dbdcc::web-lifecycle-20261021",
+  "contract": "0x01Da0016b86dA8DD85721A502Cb88B5dfb462d4c",
+  "exported_at": "2026-10-20T19:25:43.822Z",
+  "notice": "Local fixtures are not AI or onchain evidence. SHA256 checks text integrity, not authenticity. Acknowledgements are not votes or legal consent."
+}
