@@ -275,6 +275,36 @@ function pendingKey(account) {
     account.toLowerCase()
   );
 }
+function readbackKey(account) {
+  return pendingKey(account).replace(
+    "ballotseal-pending:",
+    "ballotseal-readback:",
+  );
+}
+function rpcDetail(error) {
+  return [
+    error.shortMessage ?? error.message,
+    error.details ?? error.cause?.message,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+async function load() {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      return await loadOnce();
+    } catch (error) {
+      const detail = rpcDetail(error);
+      const transient =
+        /unknown rpc|internal rpc|network|fetch failed|timeout|timed out|429|502|503|504/i.test(
+          detail,
+        );
+      if (!transient || attempt === 1) throw Error(detail);
+      status("RPC read interrupted. Retrying state refresh once…", "loading");
+      await new Promise((resolve) => setTimeout(resolve, 400));
+    }
+  }
+}
 async function identity(reader, address) {
   if (!sourceDigest) {
     const m = await fetch("release.json");
@@ -307,6 +337,7 @@ async function settle(entry) {
     const saved = localStorage.getItem(key);
     if (saved && JSON.parse(saved).hash !== entry.hash)
       throw Error("Pending transaction changed. Inspect it before continuing.");
+    localStorage.setItem(readbackKey(account), JSON.stringify(entry));
     localStorage.removeItem(key);
     status(
       "FINALIZED / SUCCESS · " + entry.hash + ". Readback follows.",
@@ -334,6 +365,13 @@ async function write(method, args) {
     await reloadSettled(pending);
     throw Error(
       "Previous transaction resolved. Read the latest proposal before sending another write.",
+    );
+  }
+  const refresh = localStorage.getItem(readbackKey(account));
+  if (refresh) {
+    await reloadSettled(JSON.parse(refresh));
+    throw Error(
+      "Confirmed state refreshed. Review it before sending another write.",
     );
   }
   localStorage.setItem(key, "storage-check");
@@ -365,6 +403,7 @@ async function write(method, args) {
     );
   }
   await settle(entry);
+  await reloadSettled(entry);
 }
 async function reloadSettled(entry) {
   const reference =
@@ -372,9 +411,20 @@ async function reloadSettled(entry) {
       ? entry.args[0]
       : entry.account.toLowerCase() + "::" + entry.args[0];
   $("ref").value = validRef(reference);
-  await load();
+  try {
+    await load();
+    localStorage.removeItem(readbackKey(entry.account));
+  } catch (error) {
+    throw Error(
+      "FINALIZED / SUCCESS · " +
+        entry.hash +
+        ". State refresh failed: " +
+        rpcDetail(error) +
+        ". Use Check pending transaction to retry the read only. Do not resend.",
+    );
+  }
 }
-async function load() {
+async function loadOnce() {
   const address = addr(),
     reference = ref();
   const reader = connection?.client ?? client();
@@ -433,7 +483,7 @@ async function load() {
     await identity(reader, address);
     $("modeBadge").textContent = "STUDIONET / CANONICAL SOURCE VERIFIED";
   } catch (e) {
-    status("Readback loaded. " + e.message, "error");
+    throw Error("Readback loaded. " + rpcDetail(e));
   }
 }
 async function sealNew() {
@@ -452,10 +502,7 @@ async function sealNew() {
       throw Error(
         "Local ID must use 1–40 lowercase letters, digits or hyphens.",
       );
-    const { account } = await ensure();
     await write("create", [id, $("title").value, $("after").value]);
-    $("ref").value = account.toLowerCase() + "::" + id;
-    await load();
   }
 }
 async function assess() {
@@ -471,7 +518,6 @@ async function assess() {
       proposal.head,
       $("after").value,
     ]);
-    await load();
     return;
   }
   const fixture = CASES[chosen],
@@ -552,10 +598,16 @@ $("resume").onclick = () =>
   run(async () => {
     const { account } = await ensure();
     const entry = localStorage.getItem(pendingKey(account));
-    if (!entry)
+    if (!entry) {
+      const refresh = localStorage.getItem(readbackKey(account));
+      if (refresh) {
+        await reloadSettled(JSON.parse(refresh));
+        return;
+      }
       throw Error(
         "No saved pending transaction for this account and contract.",
       );
+    }
     const pending = JSON.parse(entry);
     await settle(pending);
     await reloadSettled(pending);
@@ -565,7 +617,6 @@ $("ack").onclick = () =>
     if (!state) throw Error("Seal or load a proposal first.");
     if (mode === "live") {
       await write("acknowledge", [ref(), proposal.head]);
-      await load();
     } else {
       state = acknowledge(state);
       render();
