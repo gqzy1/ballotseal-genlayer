@@ -3,6 +3,7 @@ import {
   client,
   parse,
   finalizedOK,
+  finalized,
   validAddress,
   validRef,
 } from "./sdk.js";
@@ -187,6 +188,7 @@ function updateCount() {
     " / 6,000 characters";
 }
 async function select(name) {
+  if (!Object.hasOwn(CASES, name)) name = "copy";
   chosen = name;
   state = acknowledge(await seal("Design Guild / identity grant", BASE));
   $("after").value = CASES[name].text;
@@ -226,7 +228,7 @@ async function configure(next) {
     next === "demo"
       ? "Choose a scenario, then inspect the amendment."
       : "Seal or revise only after verifying the deployment source.";
-  if (next === "demo") await select(chosen === "custom" ? "copy" : chosen);
+  if (next === "demo") await select(chosen);
   else {
     $("before").value = "";
     $("after").value = "";
@@ -303,20 +305,25 @@ async function settle(entry) {
     interval: 5000,
     retries: 24,
   });
-  if (receipt.status === "FINALIZED") {
-    localStorage.removeItem(pendingKey(account));
-    if (!finalizedOK(receipt))
-      throw Error(
-        "Finalized business failure: " +
-          entry.hash +
-          ". Inspect the transaction; no success is claimed.",
-      );
+  if (finalizedOK(receipt)) {
+    await ensure();
+    const key = pendingKey(account);
+    const saved = localStorage.getItem(key);
+    if (saved && JSON.parse(saved).hash !== entry.hash)
+      throw Error("Pending transaction changed. Inspect it before continuing.");
+    localStorage.removeItem(key);
     status(
       "FINALIZED / SUCCESS · " + entry.hash + ". Readback follows.",
       "success",
     );
     return receipt;
   }
+  if (finalized(receipt))
+    throw Error(
+      "Finalized transaction has no verified successful execution: " +
+        entry.hash +
+        ". Pending hash retained; inspect the execution result before retrying.",
+    );
   throw Error("Transaction is not finalized. Resume later using " + entry.hash);
 }
 async function write(method, args) {

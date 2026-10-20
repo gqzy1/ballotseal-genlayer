@@ -24,6 +24,7 @@ jobs:
       - run: npm test
       - run: npm run verify:source
       - run: npm run build
+      - run: npm run format:check
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { connect, finalizedOK, parse } from "../sdk.js";
+import { connect, finalized, finalizedOK, parse } from "../sdk.js";
 test("rejects wrong wallet network before writes", async () => {
   await assert.rejects(
     () =>
@@ -28,3 +28,24 @@ test("JSON contract reads parsed", () =>
   assert.deepEqual(parse('{"head":1}'), { head: 1 }));
 test("missing wallet has useful error", async () =>
   assert.rejects(() => connect(null), /wallet/));
+
+test("raw consensus receipt success is recognized without a legacy status field", () => {
+  const receipt = {
+    status_name: "FINALIZED",
+    consensus_data: { leader_receipt: [{ execution_result: "SUCCESS" }] },
+  };
+  assert.equal(finalized(receipt), true);
+  assert.equal(finalizedOK(receipt), true);
+  for (const candidate of [
+    { ...receipt, status_name: "ACCEPTED" },
+    { ...receipt, status: "PENDING" },
+    { status_name: "FINALIZED" },
+    { ...receipt, execution_result: "FAILURE" },
+    { ...receipt, consensus_data: { leader_receipt: [{ execution_result: "ERROR" }] } },
+    { ...receipt, consensus_data: { leader_receipt: [] } },
+  ]) assert.equal(finalizedOK(candidate), false);
+  assert.equal(finalizedOK({
+    statusName: "FINALIZED",
+    txExecutionResultName: "FINISHED_WITH_RETURN",
+  }), true);
+});

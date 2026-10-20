@@ -23,10 +23,30 @@ export async function connect(provider) {
 export function parse(value) {
   return typeof value === "string" ? JSON.parse(value) : value;
 }
-export function finalizedOK(receipt) {
+export function finalized(receipt) {
+  const statuses = [
+    receipt?.status_name,
+    receipt?.statusName,
+    receipt?.status,
+  ].filter((value) => typeof value === "string");
   return (
-    receipt?.status === "FINALIZED" && receipt?.execution_result === "SUCCESS"
+    statuses.length > 0 &&
+    statuses.every((value) => value.toUpperCase() === "FINALIZED")
   );
+}
+export function finalizedOK(receipt) {
+  if (!finalized(receipt)) return false;
+  const results = [];
+  if (receipt.execution_result !== undefined)
+    results.push(receipt.execution_result === "SUCCESS");
+  if (receipt.txExecutionResultName !== undefined)
+    results.push(receipt.txExecutionResultName === "FINISHED_WITH_RETURN");
+  const leaders = receipt.consensus_data?.leader_receipt;
+  if (Array.isArray(leaders))
+    for (const leader of leaders)
+      if (leader?.execution_result !== undefined)
+        results.push(leader.execution_result === "SUCCESS");
+  return results.length > 0 && results.every(Boolean);
 }
 export function validAddress(a) {
   if (!/^0x[0-9a-fA-F]{40}$/.test(a) || /^0x0{40}$/.test(a))
