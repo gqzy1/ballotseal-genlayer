@@ -24,10 +24,15 @@ export function parse(value) {
   return typeof value === "string" ? JSON.parse(value) : value;
 }
 export function finalized(receipt) {
-  const statuses = [receipt?.status_name, receipt?.statusName, receipt?.status]
-    .filter((value) => typeof value === "string");
-  return statuses.length > 0 &&
-    statuses.every((value) => value.toUpperCase() === "FINALIZED");
+  const statuses = [
+    receipt?.status_name,
+    receipt?.statusName,
+    receipt?.status,
+  ].filter((value) => typeof value === "string");
+  return (
+    statuses.length > 0 &&
+    statuses.every((value) => value.toUpperCase() === "FINALIZED")
+  );
 }
 export function finalizedOK(receipt) {
   if (!finalized(receipt)) return false;
