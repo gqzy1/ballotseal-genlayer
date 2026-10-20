@@ -19,8 +19,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Inspect pinned SDK receipt transformation
-        run: grep -n -A 18 -B 6 -E 'leaderReceipt|leader_receipt|executionResult|execution_result|fullTransaction|function getTransaction|simplifyTransaction|consensusData' node_modules/genlayer-js/dist/index.js node_modules/genlayer-js/dist/chunk-*.js
       - run: npm run check
       - run: npm run lint
       - run: npm test
