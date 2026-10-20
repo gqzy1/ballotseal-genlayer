@@ -1,6 +1,6 @@
 # BallotSeal V0.3 live acceptance
 
-**V0.3 acceptance complete — READY TO SUBMIT.** Verified deployment, semantic revisions and version-bound acknowledgements are summarized below.
+This record describes the deployed V0.3 example, semantic revisions and version-bound acknowledgements.
 
 ## Network and canonical deployment
 
@@ -43,7 +43,7 @@ A single missing-terms Studio dry run used the explicit **Simulation Mode / Simu
 
 The published application loaded real V1–V4, displayed the verified-source marker and epoch 2, verified record integrity and downloaded JSON in desktop Chrome. Captured application-origin warning/error count was zero; extension metadata errors were excluded.
 
-User-provided Chrome device-toolbar screenshots at **320×844** and **390×844** were reviewed. The user then confirmed successful narrow-screen verification, JSON download and normal button operation on 20 October 2026. These are screenshot review and user-reported interactions, not automated device tests or physical-phone testing. A separate user-local console capture, keyboard-focus run and reduced-motion run were not supplied.
+Chrome device-toolbar checks covered 320×844 and 390×844 layouts, record verification, JSON download and button operation. Screenshots and manual interaction checks are distinct from automated tests. Physical-phone testing and separate keyboard/reduced-motion runs were not recorded.
 
 ## Coverage limits
 
@@ -57,4 +57,4 @@ User-provided Chrome device-toolbar screenshots at **320×844** and **390×844**
 
 29 contract Direct Mode tests, pinned SDK/linter/schema/type/source checks, 26 frontend tests, lint and production build passed. The address-configured bundle also passed `node --check app.js` and `npm run build`. See [validation](../VALIDATION.md) and the raw evidence directory.
 
-Contract source and deterministic business rules remain unchanged. [Release status](RELEASE_STATUS.md) lists current scope and limitations.
+Contract source and deterministic business rules are unchanged.

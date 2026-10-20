@@ -13,10 +13,8 @@ Current application: https://gqzy1.github.io/ballotseal-genlayer/
 
 ## Narrow-screen Chrome
 
-User screenshots at 320×844 (homepage) and 390×844 (workbench) were reviewed. Visible content had no obvious obstruction. On 20 October 2026 the user confirmed successful verification, JSON download and normal button operation after the narrow-screen read/verify/export instructions.
-
-Evidence is screenshot review plus user-reported interaction in Chrome device-toolbar emulation. Physical mobile hardware, an independent user-local console capture, keyboard traversal and reduced-motion execution were not recorded. CSS and automated DOM checks are separate evidence.
+Chrome device-toolbar checks covered 320×844 and 390×844 layouts. Record verification, JSON download and normal button operation were manually confirmed on 20 October 2026. This is browser emulation, not physical-device testing. Separate keyboard and reduced-motion execution were not recorded.
 
 ## Publication
 
-GitHub Pages is the current deployment-configured application. The earlier chatgpt.site publication was an offline preview and is not the current release. Real chain receipts and runtime boundaries are documented in [live acceptance](../docs/LIVE_ACCEPTANCE.md).
+GitHub Pages is the current deployment-configured application. Real chain receipts and runtime boundaries are documented in [live acceptance](../docs/LIVE_ACCEPTANCE.md).
