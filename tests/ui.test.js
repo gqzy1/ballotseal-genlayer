@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import assert from "node:assert/strict";
 import * as domain from "../domain.js";
-import { finalized, finalizedOK } from "../sdk.js";
+import { finalized, finalizedOK, settledReceipt } from "../sdk.js";
 const tick = async (w) => {
   for (let i = 0; i < 200; i++) {
     await new Promise((resolve) => setTimeout(resolve, 5));
@@ -26,6 +26,7 @@ async function page(overrides = {}) {
     parse: JSON.parse,
     finalized,
     finalizedOK,
+    settledReceipt,
     validAddress: (a) => {
       if (!/^0x[0-9a-f]{40}$/.test(a))
         throw Error("Enter a valid nonzero contract address.");
@@ -39,7 +40,7 @@ async function page(overrides = {}) {
     "",
   );
   await w.eval(
-    "(async()=>{const {connect,client,parse,finalizedOK,finalized,validAddress,validRef}=window.__sdk;const {PROTOCOL,DIMS,NAMES,BASE,CASES,seal,append,acknowledge,applicability,unknownAssessment,exportRecord,verifyRecord,sha256,validateText}=window.__domain;" +
+    "(async()=>{const {connect,client,parse,finalizedOK,finalized,settledReceipt,validAddress,validRef}=window.__sdk;const {PROTOCOL,DIMS,NAMES,BASE,CASES,seal,append,acknowledge,applicability,unknownAssessment,exportRecord,verifyRecord,sha256,validateText}=window.__domain;" +
       code +
       "})()",
   );
@@ -167,7 +168,8 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
       }
       return "0x" + String(writes.length).repeat(64);
     },
-    waitForTransactionReceipt: async ({ hash, status }) => {
+    waitForTransactionReceipt: async ({ hash, status, fullTransaction }) => {
+      assert.equal(fullTransaction, true);
       assert.equal(status, "FINALIZED");
       const key = "ballotseal-pending:61999:" + address + ":" + account;
       pendingDuringWait.push(JSON.parse(w.localStorage.getItem(key)).hash);
@@ -223,7 +225,19 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
     assert.equal(d.getElementById("assess").disabled, false);
   }
   assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
-  assert.equal(pendingDuringWait.length, 3);
+  w.localStorage.setItem(key, JSON.stringify({
+    hash: "0x" + "3".repeat(64), address, account,
+    method: "acknowledge", args: [reference, 2],
+  }));
+  d.getElementById("ref").value = "";
+  const beforeRecovery = reads.length;
+  d.getElementById("resume").click();
+  await tick(w);
+  assert.equal(w.localStorage.getItem(key), null);
+  assert.equal(d.getElementById("ref").value, reference);
+  assert.ok(reads.length > beforeRecovery);
+  assert.deepEqual(writes, ["create", "revise", "acknowledge"]);
+  assert.equal(pendingDuringWait.length, 4);
   assert.equal(d.querySelectorAll(".historyRow").length, 2);
   assert.match(d.getElementById("ackStatus").textContent, /acknowledged V2/);
   d.getElementById("demo").click();
