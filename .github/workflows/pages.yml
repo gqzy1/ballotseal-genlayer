@@ -19,6 +19,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Inspect pinned SDK receipt transformation
+        run: |
+          rg -n 'leaderReceipt|leader_receipt|executionResult|execution_result|fullTransaction|function getTransaction' node_modules/genlayer-js --glob '*.js' --glob '*.ts' | head -160
       - run: npm run check
       - run: npm run lint
       - run: npm test
