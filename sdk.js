@@ -42,10 +42,25 @@ export function finalizedOK(receipt) {
   if (receipt.txExecutionResultName !== undefined)
     results.push(receipt.txExecutionResultName === "FINISHED_WITH_RETURN");
   const leaders = receipt.consensus_data?.leader_receipt;
+  const agreed =
+    receipt.result_name === "MAJORITY_AGREE" ||
+    receipt.resultName === "MAJORITY_AGREE" ||
+    receipt.result === 6;
   if (Array.isArray(leaders))
-    for (const leader of leaders)
+    for (const leader of leaders) {
+      const vm = leader?.genvm_result;
+      const cancelled =
+        agreed &&
+        leader?.execution_result === "ERROR" &&
+        vm?.error_code === "CONSENSUS_VALIDATOR_QUORUM_REACHED" &&
+        vm?.raw_error?.fatal === false &&
+        Array.isArray(vm.raw_error.causes) &&
+        vm.raw_error.causes.length === 1 &&
+        vm.raw_error.causes[0] === "VALIDATOR_QUORUM_REACHED";
+      if (cancelled) continue;
       if (leader?.execution_result !== undefined)
         results.push(leader.execution_result === "SUCCESS");
+    }
   return results.length > 0 && results.every(Boolean);
 }
 export function validAddress(a) {
