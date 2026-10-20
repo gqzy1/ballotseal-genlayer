@@ -7,6 +7,15 @@ import {
   parse,
   settledReceipt,
 } from "../sdk.js";
+const quorumCancelled = {
+  execution_result: "ERROR",
+  genvm_result: {
+    error_code: "CONSENSUS_VALIDATOR_QUORUM_REACHED",
+    raw_error: { fatal: false, causes: ["VALIDATOR_QUORUM_REACHED"] },
+    stderr: "Validator execution cancelled after quorum",
+    stdout: "",
+  },
+};
 test("rejects wrong wallet network before writes", async () => {
   await assert.rejects(
     () =>
@@ -73,7 +82,10 @@ test("pinned SDK full and simplified receipt shapes retain successful execution"
     result_name: "MAJORITY_AGREE",
     data: {},
     consensus_data: {
-      leader_receipt: [{ mode: "leader", execution_result: "SUCCESS" }],
+      leader_receipt: [
+        { mode: "leader", execution_result: "SUCCESS" },
+        quorumCancelled,
+      ],
       validators: [{ vote: "idle", execution_result: "ERROR" }],
     },
   });
@@ -95,7 +107,7 @@ test("pending recovery verifies the same finalized transaction through connected
     status: "FINALIZED",
     result: 6,
     consensus_data: {
-      leader_receipt: [{ execution_result: "SUCCESS" }],
+      leader_receipt: [{ execution_result: "SUCCESS" }, quorumCancelled],
       validators: [{ vote: "idle", execution_result: "ERROR" }],
     },
   };
@@ -137,4 +149,47 @@ test("pending recovery verifies the same finalized transaction through connected
   reader.waitForTransactionReceipt = async () => raw;
   assert.equal(finalizedOK(await settledReceipt(reader, entry)), true);
   assert.equal(requests, before);
+});
+
+test("quorum cancellation is ignored only after finalized consensus success", () => {
+  const success = { execution_result: "SUCCESS" };
+  const receipt = {
+    status: "FINALIZED",
+    result_name: "MAJORITY_AGREE",
+    consensus_data: { leader_receipt: [success, quorumCancelled] },
+  };
+  assert.equal(finalizedOK(receipt), true);
+  for (const patch of [
+    { status: "ACCEPTED" },
+    { result_name: "UNDETERMINED" },
+    { execution_result: "ERROR" },
+    { txExecutionResultName: "FINISHED_WITH_ERROR" },
+    { consensus_data: { leader_receipt: [quorumCancelled] } },
+  ])
+    assert.equal(finalizedOK({ ...receipt, ...patch }), false);
+  for (const error of [
+    { execution_result: "ERROR" },
+    { ...quorumCancelled, genvm_result: { error_code: "CONTRACT_ERROR" } },
+    {
+      ...quorumCancelled,
+      genvm_result: {
+        ...quorumCancelled.genvm_result,
+        raw_error: { fatal: true, causes: ["VALIDATOR_QUORUM_REACHED"] },
+      },
+    },
+    {
+      ...quorumCancelled,
+      genvm_result: {
+        ...quorumCancelled.genvm_result,
+        raw_error: { fatal: false, causes: ["OTHER_ERROR"] },
+      },
+    },
+  ])
+    assert.equal(
+      finalizedOK({
+        ...receipt,
+        consensus_data: { leader_receipt: [success, error] },
+      }),
+      false,
+    );
 });
