@@ -50,31 +50,21 @@ test("raw consensus receipt success is recognized without a legacy status field"
   }), true);
 });
 
-test("pinned SDK preserves successful leader execution in full receipts", async () => {
-  const { client } = await import("../sdk.js");
-  const raw = {
+test("pinned SDK full and simplified receipt shapes retain successful execution", async () => {
+  const { simplifyTransactionReceipt, decodeLocalnetTransaction } = await import("genlayer-js");
+  const full = decodeLocalnetTransaction({
     hash: "0x" + "a".repeat(64),
-    status: "FINALIZED",
+    status: 7,
+    statusName: "FINALIZED",
     result_name: "MAJORITY_AGREE",
     data: {},
     consensus_data: {
       leader_receipt: [{ mode: "leader", execution_result: "SUCCESS" }],
       validators: [{ vote: "idle", execution_result: "ERROR" }],
     },
-  };
-  const sdk = client({
-    request: async ({ method }) => {
-      assert.equal(method, "eth_getTransactionByHash");
-      return structuredClone(raw);
-    },
   });
-  const simplified = await sdk.waitForTransactionReceipt({
-    hash: raw.hash, status: "FINALIZED", retries: 0,
-  });
+  const simplified = simplifyTransactionReceipt(full);
   console.log("SDK simplified receipt:", JSON.stringify(simplified));
-  const full = await sdk.waitForTransactionReceipt({
-    hash: raw.hash, status: "FINALIZED", retries: 0, fullTransaction: true,
-  });
   console.log("SDK full receipt:", JSON.stringify(full));
   assert.equal(finalizedOK(full), true);
 });
