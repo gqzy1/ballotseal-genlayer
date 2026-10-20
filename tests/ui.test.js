@@ -143,13 +143,15 @@ test("narrow layouts and reduced-motion rules exist", async () => {
   w.close();
 });
 
-test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet", async () => {
+for (const fault of ["none", "transient", "persistent"])
+  test("SDK 1.1.8 lifecycle and readback recovery: " + fault, async () => {
   const account = "0x" + "1".repeat(40);
   const address = "0x" + "2".repeat(40);
   const reference = account + "::lifecycle";
   const source = await readFile("contracts/ballot_seal.py", "utf8");
   const digest = await domain.sha256(source);
   let record = null;
+  let failuresLeft = fault === "transient" ? 1 : fault === "persistent" ? 2 : 0;
   const writes = [],
     reads = [],
     pendingDuringWait = [];
@@ -188,6 +190,10 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
     readContract: async ({ functionName, args }) => {
       reads.push(functionName);
       if (functionName === "get_proposal") {
+        if (writes.length === 2 && failuresLeft > 0) {
+          failuresLeft--;
+          throw Error("An unknown RPC error occurred. Node temporarily unavailable.");
+        }
         assert.equal(args[0], reference);
         return JSON.stringify({
           protocol: domain.PROTOCOL,
@@ -230,6 +236,21 @@ test("SDK 1.1.8 receipt lifecycle: create, revise, acknowledge from one wallet",
     d.getElementById(button).click();
     await tick(w);
     assert.equal(w.localStorage.getItem(key), null);
+    const refreshKey = key.replace("ballotseal-pending:", "ballotseal-readback:");
+    if (button === "assess" && fault === "persistent") {
+      assert.match(d.getElementById("status").textContent, /FINALIZED \/ SUCCESS/);
+      assert.match(d.getElementById("status").textContent, /State refresh failed/);
+      assert.ok(w.localStorage.getItem(refreshKey));
+      const polls = pendingDuringWait.length;
+      const sent = writes.length;
+      d.getElementById("ref").value = "";
+      d.getElementById("resume").click();
+      await tick(w);
+      assert.equal(pendingDuringWait.length, polls);
+      assert.equal(writes.length, sent);
+      assert.equal(d.getElementById("ref").value, reference);
+    }
+    assert.equal(w.localStorage.getItem(refreshKey), null);
     assert.ok(reads.length > previousReads, "successful writes reload state");
     assert.equal(d.getElementById("status").dataset.kind, "success");
     assert.equal(d.getElementById("assess").disabled, false);
