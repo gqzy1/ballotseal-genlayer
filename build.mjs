@@ -12,7 +12,7 @@ await build({
   target: "es2022",
   minify: true,
 });
-for (const file of ["index.html", "style.css", "brand.svg"])
+for (const file of ["index.html", "style.css", "brand.svg", "audit-example.json"])
   await copyFile(file, "dist/" + file);
 const bytes = await readFile("contracts/ballot_seal.py");
 await copyFile("contracts/ballot_seal.py", "dist/ballot_seal.py");
@@ -30,3 +30,4 @@ await writeFile(
   ) + "\n",
 );
 await writeFile("dist/.nojekyll", "");
+

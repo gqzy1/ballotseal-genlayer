@@ -1,15 +1,15 @@
 {
   "name": "ballotseal",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Governance amendment desk with version-bound acknowledgements",
   "main": "index.js",
   "scripts": {
     "build": "node build.mjs",
     "test": "node --test --test-reporter=tap tests/*.test.js",
-    "check": "node --check app.js && node --check domain.js && node --check sdk.js",
+    "check": "node --check app.js && node --check domain.js && node --check sdk.js && node --check audit.js && node --check audit-ui.js",
     "verify:source": "node scripts/verify-source.mjs",
     "lint": "eslint .",
-    "format:check": "prettier --check app.js domain.js sdk.js style.css index.html"
+    "format:check": "prettier --check app.js domain.js sdk.js style.css index.html audit.js audit-ui.js"
   },
   "keywords": [],
   "author": "",

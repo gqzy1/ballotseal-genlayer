@@ -1545,3 +1545,120 @@ dialog .notice {
     scroll-behavior: auto !important;
   }
 }
+
+.consent-audit {
+  margin: 5rem 0 2rem;
+  padding: clamp(1rem, 4vw, 3rem);
+  border: 1px solid #61e4ed66;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #111e29, #151321);
+  scroll-margin-top: 2rem;
+}
+.audit-heading {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.audit-heading h2 {
+  font-size: clamp(1.7rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  margin: 1rem 0;
+}
+.audit-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0 1rem;
+}
+.audit-inputs label,
+.audit-actions label {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+.audit-inputs input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  font-size: 0.85rem;
+}
+.audit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: end;
+  margin: 1rem 0;
+}
+.audit-actions select {
+  min-width: 5rem;
+  padding: 0.65rem;
+  background: #101827;
+  color: #fff;
+  border: 1px solid #526273;
+  border-radius: 8px;
+}
+.audit-file input {
+  max-width: 230px;
+}
+#audit-status {
+  padding: 1rem;
+  border-left: 3px solid #61e4ed;
+  background: #ffffff08;
+  overflow-wrap: anywhere;
+}
+.audit-table {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.audit-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.audit-table th,
+.audit-table td {
+  text-align: left;
+  padding: 0.8rem;
+  border-bottom: 1px solid #ffffff25;
+}
+#consent-audit details {
+  border: 1px solid #ffffff20;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.75rem 0;
+}
+#consent-audit summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+#consent-audit blockquote {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border-left: 2px solid #61e4ed;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0 1.5rem;
+  color: #c4d8e1;
+}
+#consent-audit button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+@media (max-width: 650px) {
+  .audit-heading,
+  .audit-inputs {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .audit-actions button {
+    width: 100%;
+  }
+  .consent-audit {
+    padding: 1rem;
+  }
+  .audit-table th,
+  .audit-table td {
+    padding: 0.6rem;
+    min-width: 5rem;
+  }
+}
