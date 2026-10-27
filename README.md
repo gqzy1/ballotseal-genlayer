@@ -6,7 +6,7 @@ A complete static governance amendment desk built for GenLayer. **V0.3 has a sou
 
 ## New in application 0.4
 
-[Cross-version consent audit](docs/CONSENT_AUDIT.md) adds arbitrary version intervals, wallet-free viewer-history queries, intermediate five-dimension evidence, expiry tracing, portable reports and exact chain re-verification. Open **Consent audit** in the navigation. [Release changes](CHANGELOG.md). The deployed contract remains protocol 0.3.
+[Cross-version consent audit](docs/CONSENT_AUDIT.md) adds arbitrary version intervals, wallet-free viewer-history queries, intermediate five-dimension evidence, expiry tracing, portable reports and exact chain re-verification. Open **Consent audit** in the navigation. [Release changes](CHANGELOG.md) · [Published workflow verification](verification/AUDIT_RELEASE.md). The deployed contract remains protocol 0.3.
 
 ## Try the complete workflow
 
