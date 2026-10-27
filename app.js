@@ -1,3 +1,4 @@
+import { mountAudit } from "./audit-ui.js";
 import {
   connect,
   client,
@@ -770,3 +771,6 @@ await run(async () => {
     await select("copy");
   }
 });
+
+const auditRoot = document.getElementById("consent-audit");
+if (auditRoot) mountAudit(auditRoot);

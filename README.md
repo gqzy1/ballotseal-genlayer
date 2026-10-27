@@ -4,6 +4,10 @@ A complete static governance amendment desk built for GenLayer. **V0.3 has a sou
 
 [Public app](https://gqzy1.github.io/ballotseal-genlayer/) · [canonical Intelligent Contract](https://github.com/gqzy1/ballot-seal-primitive) · [validation](VALIDATION.md).
 
+## New in application 0.4
+
+[Cross-version consent audit](docs/CONSENT_AUDIT.md) adds arbitrary version intervals, wallet-free viewer-history queries, intermediate five-dimension evidence, expiry tracing, portable reports and exact chain re-verification. Open **Consent audit** in the navigation. [Release changes](CHANGELOG.md). The deployed contract remains protocol 0.3.
+
 ## Try the complete workflow
 
 1. Open “How it works” for the three-step guide. Start with a fixture: wording, doubled budget, new treasury authority, changed deadline, new beneficiary, expanded scope or missing terms.
@@ -55,3 +59,4 @@ MIT licensed.
 ## Release evidence
 
 [Deployment and finalized lifecycle](docs/LIVE_ACCEPTANCE.md) · [Runtime evidence](docs/RUNTIME.md).
+

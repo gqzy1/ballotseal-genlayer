@@ -40,7 +40,7 @@ async function page(overrides = {}) {
     "",
   );
   await w.eval(
-    "(async()=>{const {connect,client,parse,finalizedOK,finalized,settledReceipt,validAddress,validRef}=window.__sdk;const {PROTOCOL,DIMS,NAMES,BASE,CASES,seal,append,acknowledge,applicability,unknownAssessment,exportRecord,verifyRecord,sha256,validateText}=window.__domain;" +
+    "(async()=>{const mountAudit=()=>{};const {connect,client,parse,finalizedOK,finalized,settledReceipt,validAddress,validRef}=window.__sdk;const {PROTOCOL,DIMS,NAMES,BASE,CASES,seal,append,acknowledge,applicability,unknownAssessment,exportRecord,verifyRecord,sha256,validateText}=window.__domain;" +
       code +
       "})()",
   );
